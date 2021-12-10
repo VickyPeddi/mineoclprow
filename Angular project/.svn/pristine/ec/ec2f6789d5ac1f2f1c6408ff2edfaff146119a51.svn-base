@@ -1,0 +1,106 @@
+<header class="page-header">
+  <div class="container-fluid">
+    <h2 class="no-margin-bottom">Audit User Documents</h2>
+  </div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <h3 class="h4">List of Audit Users where user is registered</h3>
+      </div>
+      <div class="card-body" *ngIf="auditUsersDataList==undefined || auditUsersDataList.length==0">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header" style="background-color: rgb(239, 126, 62,0.9)">
+              <h4 style="color: white;">Note</h4>
+            </div>
+            <div class="card-body">
+              There does not exist any registered audit user.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="auditUsersDataList!= undefined && auditUsersDataList.length>0" class="card-body">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" aria-hidden="true"><i class="fa fa-search"></i></span>
+              <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+                placeholder="Search">
+            </div>
+            <button class="btn btn-primary" (click)="exportAsXLSX()">Export</button>
+          </div>
+        </div>
+        <cdk-virtual-scroll-viewport style="height: 500px;width: 100%" itemSize="100">
+
+          <table class="table container-fluid table-hover">
+            <thead>
+              <th>Sr. No.</th>
+              <th>Role</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              <th>Qualification</th>
+              <th>ID Type</th>
+              <th>Vendor Admin Name</th>
+            </thead>
+            <tbody>
+              <tr *cdkVirtualFor="let listItem of auditUsersDataList | filter:searchText; let i = index"
+                [class.highlighted]="listItem.userId === currentUserId" (click)="selectAuditUser(listItem)"
+                data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer;">
+                <td>{{i + 1}}</td>
+                <td title="role">{{listItem.role}}</td>
+                <td title="First Name" style="width: 50px">{{listItem.firstName}}</td>
+                <td title="Last Name">{{listItem.lastName}}</td>
+                <td title="Email">{{listItem.email}}</td>
+                <td title="Mobile">{{listItem.mobile}}</td>
+                <td title="Qualification">{{listItem.qualificationLevel}}</td>
+                <td title="ID Type">{{listItem.idType}}</td>
+                <td title="Vendor Admin Code">{{listItem.vendorAdminName}}</td>
+
+              </tr>
+              <tr *ngIf="(auditUsersDataList | filter:searchText)?.length == 0">
+                <td colspan="11" style="text-align: center">
+                  <h5>Nothing found for: {{searchText}} </h5>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Audit User Documents</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body" style="text-align: center">
+          <div class="row">
+            <div class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="navbar-nav">
+                <a class=" btn btn-outline-success" (click)="getIDProofDocument()">ID Proof</a>&nbsp;&nbsp;
+                <a class=" btn btn-outline-ioc" (click)="getEducationProofDocument()">Education Proof</a>&nbsp;&nbsp;
+                <a class=" btn btn-outline-danger" (click)="getPhotographDocument()">Photograph</a>&nbsp;&nbsp;
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-toast styleClass="custom-toast" key="audit-user-doc-toast" position="top-center"></p-toast>
+  </div>
+</div>

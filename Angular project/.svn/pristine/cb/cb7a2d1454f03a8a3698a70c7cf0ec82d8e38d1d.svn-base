@@ -1,0 +1,48 @@
+<div class="card">
+  <div class="card-header d-flex align-items-center">
+    <h3 class="h4">Select Parameters</h3>
+  </div>
+  <div class="card-body">
+    <form class="form-inline" (ngSubmit)="onRequestReport()" [formGroup]="misParametersInputForm">
+      <div class="col-md-3 mb-3">
+        <div class="form-group">
+          <label for="salesOrg" class="form-control-label">State Office</label>
+          <select name="salesOrg" formControlName="salesOrg" class="form-control" (change)="onSelectSalesOrg($event)"
+            style="width: 100%">
+            <option value="0" selected>All</option>
+            <option *ngFor="let soList of soList | async" [value]="soList.salesOrg">{{soList.salesOrgName}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="form-group">
+          <label for="salesOff" class="form-control-label">Division Office</label>
+          <select name="salesOff" formControlName="salesOff" class="form-control" (change)="onSelectSalesOff($event)"
+            style="width: 100%">
+            <option value="0" selected>All</option>
+            <option *ngFor="let do of doList" [value]="do.salesoff">{{do.salesOffName}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="form-group">
+          <label for="salesArea" class="form-control-label">Sales Area</label>
+          <select name="salesArea" formControlName="salesArea" class="form-control" style="width: 100%">
+            <option value="0" selected>All</option>
+            <option *ngFor="let sa of saList" [value]="sa.salesArea">{{sa.salesAreaName}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="form-group">
+          <label for="submit" class="form-control-label">&nbsp;</label>
+          <button type="submit" class="btn btn-primary" style="width: 100%"
+            [disabled]="buttonDisable">{{buttonDisable ? 'Please Wait...' : 'Show'}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

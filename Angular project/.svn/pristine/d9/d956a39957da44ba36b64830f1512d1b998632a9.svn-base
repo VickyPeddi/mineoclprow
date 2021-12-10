@@ -1,0 +1,103 @@
+<header class="page-header">
+	<div class="container-fluid">
+		<h2 class="no-margin-bottom">FIT Tracker</h2>
+	</div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header d-flex align-items-center">
+				<h3 class="h4">List of ROs where audits have been Completed</h3>
+			</div>
+			<div class="card-body" *ngIf="dhruvaFitTrackerDatas == undefined || dhruvaFitTrackerDatas.length == 0">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-header" style="background-color: rgb(239, 126, 62,0.9)">
+							<h4 style="color: white;">Note</h4>
+						</div>
+						<div class="card-body">
+							{{isLoadingTrackerDatas	? 'Please Wait... Populating results ':'There does not exist any Retail Outlet in your area where TPA Audit was conducted.'}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="dhruvaFitTrackerDatas != undefined && dhruvaFitTrackerDatas.length > 0" class="card-body">
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" aria-hidden="true"><i class="fa fa-search"></i></span>
+							<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+								placeholder="Search">
+						</div>
+					</div>
+				</div>
+				<cdk-virtual-scroll-viewport style="height: 500px;width: 100%" itemSize="10">
+					<table class="table container-fluid table-hover">
+						<thead> 
+							<th>Sr. No.</th>
+							<th>Audit No</th>
+							<th>RO code</th>
+							<th>RO Name</th>
+							<th>Location</th>
+							<th>Sales Area Code</th>
+							<th>Sales Area Name</th>
+							<th>Actual Audit Date</th>
+							<th>Plan Start Date</th>
+						</thead>
+						<tbody>
+							<tr *cdkVirtualFor="let listItem of dhruvaFitTrackerDatas | filter:searchText; let i = index"
+								[class.highlighted]="listItem.auditNo === currentAuditNo" (click)="selectRoCode(listItem)"
+								data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer;">
+								<td>{{i + 1}}</td>
+								<td title="Audit No">{{listItem.auditNo}}</td>
+								<td title="RO Code">{{listItem.roCode}}</td>
+								<td title="RO Name" style="width: 50px">{{listItem.roName}}</td>
+								<td title="Location">{{listItem.location}}</td>
+								<td title="Sales Area">{{listItem.salesArea}}</td>
+								<td title="Sales Area">{{listItem.salesAreaName}}</td>
+								<td title="Audit Date">{{listItem.actualAuditDate}}</td>
+								<td title="Plan Start Date">{{listItem.planStartDate}}</td>
+							</tr>
+							<tr *ngIf="(dhruvaFitTrackerDatas | filter:searchText )?.length == 0">
+								<td colspan="11" style="text-align: center">
+									<h5>Nothing found for: {{searchText}}</h5>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</cdk-virtual-scroll-viewport>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Facility Tracker Form for <u>{{currentRoName}}
+						({{currentRoCode}})</u></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="card-body">
+					<div class="accordion" id="fitDataAccordion">
+						<div class="card" *ngFor="let currentAuditWiseFITDetail of currentAuditWiseFITDetails; let i = index;">
+							<app-fit-tracker-facility [index]="i" [data]="currentAuditWiseFITDetail"
+								[planStartDate]="currentPlanStartDate" [actualAuditDate]="currentActualAuditDate">
+							</app-fit-tracker-facility>
+						</div>
+						<div *ngIf="currentAuditWiseFITDetails.length == 0 ">
+							<h4>{{isLoadingFitDetails? 'Please Wait... Populating results': 'No facility with score less than 3 found in this audit.'}} <span style="font-size: 25px">😄</span></h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p-toast styleClass="custom-toast" key="fit-tracker" position="bottom-center" [baseZIndex]="5000"></p-toast>
+	</div>
+</div>

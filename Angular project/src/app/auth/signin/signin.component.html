@@ -1,0 +1,86 @@
+<!-- <body class="text-center">
+  <form class="form-signin" (ngSubmit)="onSignIn(f)" #f="ngForm">
+    <img class="mb-4" src="../../../favicon.ico" alt="Logo" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="userName" class="sr-only">Username</label>
+    <input type="text" name="userName" class="form-control" placeholder="Username" [(ngModel)]="user.userName"
+      #username="ngModel" required>
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="user.password"
+      #password="ngModel" required>
+    <button class="btn btn-lg btn-primary btn-block" [disabled]="f.invalid" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+  </form>
+</body> -->
+
+<div class="page login-page">
+	<div class="container d-flex align-items-center">
+		<div class="form-holder has-shadow">
+			<div class="row">
+				<!-- Logo & Information Panel-->
+				<div class="col-lg-6">
+					<div class="info d-flex align-items-center">
+						<div class="content">
+							<div class="logo">
+								<h1>Dhruva 2.0 <h6>(v.{{version}})</h6>
+								</h1>
+							</div>
+							<p>Please signin with your credentials.</p>
+							<p *ngIf="(healthInfo | async)?.status === 'UP'">
+								<i class="fa fa-circle" style="font-size:20px;color: lightgreen;"></i>&nbsp;&nbsp;System is Online.</p>
+							<p *ngIf="(healthInfo | async)?.status !== 'UP'">
+								<i class="fa fa-circle" style="font-size:20px;color: orange;"></i>&nbsp;&nbsp;System is not running,
+								Please try later or contact administrator.</p>
+						</div>
+					</div>
+				</div>
+				<!-- Form Panel-->
+				<div class="col-lg-6 bg-white">
+					<div class="form d-flex align-items-center">
+						<div class="content">
+							<form (ngSubmit)="onSignIn(f)" #f="ngForm">
+								<div style="text-align: center">
+									<img src="{{assetUrl}}/assets/img/Indianoil.jpg" />
+									<img src="{{assetUrl}}/assets/img/dhruvalogo.jpeg" />
+								</div><br />
+								<div class="form-group">
+									<label for="userName" class="label-material active">User Name</label>
+									<input id="userName" type="text" autocomplete="off" name="userName" [(ngModel)]="user.userName"
+										#username="ngModel" required class="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="password" class="label-material active">Password</label>
+									<input id="password" type="password" autocomplete="off" name="password" [(ngModel)]="user.password"
+										#password="ngModel" required data-msg="Please enter your password" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="captchaImage" class="label-material active">Captcha</label>
+									<img [src]="captchaImage" alt="Captcha Image" />
+								</div>
+								<div class="form-group">
+									<label for="captchaImage" class="label-material active">Captcha Answer</label>
+									<input id="captchaAnswer" type="text" autocomplete="off" name="captchaAnswer"
+										[(ngModel)]="user.captchaAnswer" #captchaAnswer="ngModel" required data-msg="Please enter answer"
+										class="form-control">
+								</div>
+								<div class="form-group">
+									<!-- <label for="submit" class="form-control-label">&nbsp;</label> -->
+									<button type="submit" class="btn btn-primary" style="width: 100%"
+										[disabled]="buttonDisable">{{buttonDisable ? 'Please Wait...' : 'Login'}}</button>
+									<label class="form-control-label">&nbsp;</label>
+									<!-- <a href="https://spandan.indianoil.co.in/SolMgrRtl/" target="_blank" class="btn btn-outline-ioc"
+										style="width: 100%">Solution Manager</a> -->
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="copyrights text-center">
+		<p>Developed by Marketing IS, IOCL. UI template from <a
+				href="https://bootstrapious.com/admin-templates">Bootstrapious</a></p>
+	</div>
+</div>
+<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="sign" position="bottom-center"></p-toast>

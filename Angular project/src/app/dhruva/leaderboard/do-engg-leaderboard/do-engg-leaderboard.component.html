@@ -1,0 +1,55 @@
+<!-- Page Header-->
+<header class="page-header">
+    <div class="container-fluid">
+      <h2 class="no-margin-bottom">Dhruva DO Engg Leaderboard</h2>
+    </div>
+  </header>
+  <!-- Dashboard Counts Section-->
+  <section class="dashboard-counts no-padding-bottom">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header d-flex align-items-center">
+          <h3 class="h4">Leaderboard Scores as on {{updatedOn}}</h3>
+        </div>
+
+        <div class="card-body"> 
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" aria-hidden="true"><i class="fa fa-search"></i></span>
+                <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+                  placeholder="Search">
+                  <button class="btn btn-primary" (click)="exportAsXLSX()">Export</button>
+              </div>
+            </div>
+          </div>
+          <cdk-virtual-scroll-viewport style="height: 500px;width: 100%" itemSize="10">
+            <table class="table container-fluid  table-hover">
+              <thead>
+                <th>Sr. No.</th>
+                <th>Division Office</th>
+                <th>All India Rank</th>
+                <th>Dhruva ROs</th>               
+                <th>Engg. Index</th>
+              </thead>
+              <tbody>
+                <tr *cdkVirtualFor="let doEnggLeaderboardData of doEnggLeaderboardDatas | filter:searchText; let i = index">
+                  <td title="Sr. No.">{{i + 1}}</td>
+                  <td title="Division Office">{{doEnggLeaderboardData.doName}}</td>
+                  <td title="All India Rank" style="width: 50px">{{doEnggLeaderboardData.rank}}</td>
+                  <td title="Dhruva ROs">{{doEnggLeaderboardData.totalDhruva}}</td>
+                  <td title="Engg Index" [attr.class]="doEnggLeaderboardData.finalDhruvaIndex | colorCode">
+                    {{doEnggLeaderboardData.finalDhruvaIndex}}</td>
+                </tr>
+                <tr *ngIf="(doEnggLeaderboardDatas | filter:searchText)?.length == 0">
+                  <td colspan="11" style="text-align: center">
+                    <h5>Nothing found for: {{searchText}} </h5>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </cdk-virtual-scroll-viewport>
+        </div>
+      </div>
+    </div>
+  </section>

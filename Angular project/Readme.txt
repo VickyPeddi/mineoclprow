@@ -1,0 +1,1 @@
+perform npm install after checkout

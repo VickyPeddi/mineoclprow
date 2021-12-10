@@ -1,0 +1,31 @@
+<div >
+  <div style="text-align: center">
+    <h3>Sales Area Dhruva Compliant Scores(In %)</h3>
+  </div>
+  
+  <div *ngIf="isMobile">
+      <div class="card-body">
+          <select style="width: auto" class='form-control' (change)="changeDo($event.target.value)">
+                <option value=" " selected="true" disabled="true">--Select Divisional Office--</option>
+                <option *ngFor="let doName of doListforDropDown" [value]="doName">{{doName}}</option>        
+              </select>
+        <canvas *ngIf="currentDoData" baseChart [datasets]="barChartStateData" [labels]="barChartStateLabels"
+          [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartStateType"
+          [colors]="barChartStateColors" (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+    </div>
+    <div *ngIf="!isMobile">
+      <div class="card-body">
+          <select style="width: auto" class='form-control' (change)="changeDo($event.target.value)">
+                <option value=" " selected="true" disabled="true">--Select Divisional Office--</option>
+                <option *ngFor="let doName of doListforDropDown" [value]="doName">{{doName}}</option>        
+              </select>
+        <canvas  *ngIf="currentDoData" height="60px" baseChart [datasets]="barChartStateData" [labels]="barChartStateLabels"
+          [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartStateType"
+          [colors]="barChartStateColors" (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+    </div>
+  
+  </div>

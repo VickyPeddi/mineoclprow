@@ -1,0 +1,42 @@
+<!-- <div class="container-fluid"> -->
+<div style="text-align: center">
+  <hr />
+  <h3>State Office Dhruva Indices</h3>
+</div>
+<div *ngIf="isMobile">
+  <div class="card-body">
+    <canvas baseChart [datasets]="barChartStateData" [labels]="barChartStateLabels" [options]="barChartOptions"
+      [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartStateType"
+      [colors]="barChartStateColors" (chartClick)="chartClicked($event)">
+    </canvas>
+  </div>
+  <div style="text-align: center" *ngIf="showParameterScores">
+    <hr/>
+    <h3>Parameter Scores for {{currentSoData}}</h3>
+  </div>
+  <div class="card-body" *ngIf="showParameterScores">
+    <canvas baseChart [datasets]="barChartDivisionData" [labels]="barChartDivisionLabels" [options]="barChartOptions"
+      [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartDivisionType"
+      [colors]="barChartDivisionColors">
+    </canvas>
+  </div>
+</div>
+<div *ngIf="!isMobile">
+  <div class="card-body">
+    <canvas height="70%" baseChart [datasets]="barChartStateData" [labels]="barChartStateLabels"
+      [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartStateType"
+      [colors]="barChartStateColors" (chartClick)="chartClicked($event)">
+    </canvas>
+  </div>
+  <div style="text-align: center" *ngIf="showParameterScores">
+    <hr>
+    <h3>Parameter Scores for {{currentSoData}}</h3>
+  </div>
+  <div class="card-body" *ngIf="showParameterScores">
+    <canvas baseChart height="70%" [datasets]="barChartDivisionData" [labels]="barChartDivisionLabels"
+      [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+      [chartType]="barChartDivisionType" [colors]="barChartDivisionColors">
+    </canvas>
+  </div>
+</div>
+<!-- </div> -->

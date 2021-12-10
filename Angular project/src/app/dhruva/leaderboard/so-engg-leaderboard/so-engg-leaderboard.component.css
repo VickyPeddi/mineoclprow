@@ -1,0 +1,11 @@
+.below35{
+    color: red;
+}
+
+.between35to70{
+    color: orange;
+}
+
+.above70{
+    color: green;
+}

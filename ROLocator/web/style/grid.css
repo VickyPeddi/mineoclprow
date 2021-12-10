@@ -1,0 +1,51 @@
+
+.container_12
+{
+	width: 100%;
+	
+}
+
+.grid_12
+{
+	display: inline;
+	float: left;
+	margin-left: 1%;
+	margin-right: 1%;
+	
+}
+
+.grid_10, .grid_2
+{
+	display: inline;
+	float: left;
+}
+
+.grid_2
+{
+	margin-left: 1%;
+	display: inline;
+	float: left;
+}
+
+.grid_10 .box
+{
+	margin : 0;
+	margin-left: 2%;
+	margin-right: 1%;
+}
+
+.container_12 .grid_12
+{
+	width: 98%;
+}
+
+.container_12 .grid_2
+{
+	width: 18.666%;
+}
+
+.container_12 .grid_10
+{
+	width: 98%;
+        margin-left: 1%;
+}

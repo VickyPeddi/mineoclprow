@@ -1,0 +1,51 @@
+{
+  "name": "Dhruva 2.0",
+  "short_name": "Dhruva 2.0",
+  "theme_color": "#f37022",
+  "background_color": "#f37022",
+  "display": "standalone",
+  "scope": "/dhruva2/",
+  "start_url": "/dhruva2/",
+  "icons": [
+    {
+      "src": "assets/icons/Dhruva Icon 72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/Dhruva Icon 96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/Dhruva Icon 128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/Dhruva Icon 144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/Dhruva Icon 152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/Dhruva Icon 192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/Dhruva Icon 384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/Dhruva Icon 512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

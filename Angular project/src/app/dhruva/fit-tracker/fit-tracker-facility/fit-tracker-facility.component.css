@@ -1,0 +1,11 @@
+.Pending-with-Field-Officer{
+	color: red;
+}
+
+.Pending-with-Divisional-Officer{
+	color: orange;
+}
+
+.Approved{
+	color: green;
+}

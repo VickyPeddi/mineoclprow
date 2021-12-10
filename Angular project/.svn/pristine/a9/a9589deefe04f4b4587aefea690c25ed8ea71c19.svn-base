@@ -1,0 +1,177 @@
+<!-- Page Header-->
+<header class="page-header">
+	<div class="container-fluid">
+		<h2 class="no-margin-bottom">Dhruva Help</h2>
+	</div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+	<div class="container-fluid">
+		<div class="alert alert-primary" role="alert" *ngIf="isWaiting">
+			Please wait... Populating Personnel details <span style="font-size: 25px">😄</span>
+		</div>
+		<div class="row" *ngIf="!isWaiting">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="h4">For Technical Issues:</h3>
+					</div>
+					<div class="card-body">
+						<table class="table table-responsive table-striped table-hover">
+							<thead>
+								<!-- <th>Emp. Code.</th> -->
+								<th>Emp. Name</th>
+								<th>Email ID</th>
+								<th>Mobile No.</th>
+							</thead>
+							<tbody>
+								<tr *ngFor="let technicalPerson of technicalPersonnel">
+									<!-- <td>{{technicalPerson.empCode}}</td> -->
+									<td>{{technicalPerson.empName}}</td>
+									<td><a [href]="'mailto:' + technicalPerson.emailId" target="_top">{{technicalPerson.emailId}}</a></td>
+									<td><a [href]="'tel:' + technicalPerson.mobileNo" target="_top">{{technicalPerson.mobileNo}}</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- <div class="row">
+							<div class="col-md-3">
+								Emp. Code.
+							</div>
+							<div class="col-md-3">
+								Emp. Name
+							</div>
+							<div class="col-md-3">
+								Email ID
+							</div>
+							<div class="col-md-3">
+								Mobile No.
+							</div>
+						</div>
+						<div class="row" *ngFor="let technicalPerson of technicalPersonnel">
+							<div class="col-md-3">
+								{{technicalPerson.empCode}}
+							</div>
+							<div class="col-md-3">
+								{{technicalPerson.empName}}
+							</div>
+							<div class="col-md-3">
+								{{technicalPerson.emailId}}
+							</div>
+							<div class="col-md-3">
+								{{technicalPerson.mobileNo}}
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="h4">For Functional Issues: </h3>
+					</div>
+					<div class="card-body">
+						<table class="table table-responsive table-hover">
+							<thead>
+								<!-- <th>Emp. Code.</th> -->
+								<th>Emp. Name</th>
+								<th>Email ID</th>
+								<th>Mobile No.</th>
+							</thead>
+							<tbody>
+								<tr *ngFor="let functionalPerson of functionalPersonnel">
+									<!-- <td>{{functionalPerson.empCode}}</td> -->
+									<td>{{functionalPerson.empName}}</td>
+									<td><a [href]="'mailto:' + functionalPerson.emailId" target="_top">{{functionalPerson.emailId}}</a>
+									</td>
+									<td><a [href]="'tel:' + functionalPerson.mobileNo" target="_top">{{functionalPerson.mobileNo}}</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- <div class="row">
+							<div class="col-md-3">
+								Emp. Code.
+							</div>
+							<div class="col-md-3">
+								Emp. Name
+							</div>
+							<div class="col-md-3">
+								Email ID
+							</div>
+							<div class="col-md-3">
+								Mobile No.
+							</div>
+						</div> -->
+						<!-- <div class="row" *ngFor="let functionalPerson of functionalPersonnel">
+							<div class="col-md-3">
+								{{functionalPerson.empCode}}
+							</div>
+							<div class="col-md-3">
+								{{functionalPerson.empName}}
+							</div>
+							<div class="col-md-3">
+								{{functionalPerson.emailId}}
+							</div>
+							<div class="col-md-3">
+								{{functionalPerson.mobileNo}}
+							</div>
+						</div> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="h4">Manuals</h3>
+					</div>
+					<div class="card-body">
+						<table class="table table-striped">
+							<tr>
+								<th>Dhruva Portal User Manual</th>
+								<th><a href="{{assetUrl}}\assets\manual\Dhruva 2 Portal User Manual.pdf" target="_blank">
+										<i class="fa fa-cloud-download fa-3x" aria-hidden="true"></i></a>
+								</th>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Dashboard Header Section    -->
+<section class="dashboard-header">
+	<div class="container-fluid">
+	</div>
+</section>
+<!-- Projects Section-->
+<section class="projects no-padding-top">
+
+
+</section>
+<!-- Client Section-->
+<section class="client no-padding-top">
+	<div class="container-fluid">
+		<div class="row">
+
+		</div>
+	</div>
+</section>
+<!-- Feeds Section-->
+<section class="feeds no-padding-top">
+	<div class="container-fluid">
+		<div class="row">
+
+		</div>
+	</div>
+</section>
+<!-- Updates Section                                                -->
+<section class="updates no-padding-top">
+	<div class="container-fluid">
+		<div class="row">
+
+		</div>
+	</div>
+</section>

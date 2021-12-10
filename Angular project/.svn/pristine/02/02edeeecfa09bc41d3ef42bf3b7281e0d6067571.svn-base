@@ -1,0 +1,117 @@
+<!-- Page Header-->
+<header class="page-header">
+  <div class="container-fluid">
+    <h2 class="no-margin-bottom">Telecall Cadence Index</h2>
+  </div>
+</header>
+<!-- Dashboard Counts Section-->
+
+<!-- Dashboard Header Section    -->
+<section class="dashboard-header">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="card">
+        <div class="card-header d-flex align-items-center">
+          <h3 class="h4">Telecall Cadence Form</h3>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSavetelecallCadenceForm()" [formGroup]="telecallCadenceForm">
+            <div class="form-group">
+              <label for="telecallDate">Telecall Date</label>
+              <input type="date" name="telecallDate" class="form-control" formControlName="telecallDate" (change)="validateDate($event)"/>
+            </div>
+            <div class="form-group">
+              <label for="salesOrg">State Office</label>
+              <select name="salesOrg" class="form-control" formControlName="salesOrg"
+                (change)="onSelectSalesOrg($event)">
+                <option value="" selected disabled>-- Select --</option>
+                <option *ngFor="let salesOrgOption of salesOrgOptions | async" [value]="salesOrgOption.salesOrg">
+                  {{salesOrgOption.salesOrgName}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="sdcPresent">SDC Present</label>
+              <select name="sdcPresent" class="form-control" formControlName="sdcPresent">
+                <option value="" selected disabled>-- Select --</option>
+                <option *ngFor="let yesNoOption of yesNoOptions" [ngValue]="yesNoOption.value">
+                  {{yesNoOption.option}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="srhPresent">SRH Present</label>
+              <select name="srhPresent" class="form-control" formControlName="srhPresent">
+                <option value="" selected disabled>-- Select --</option>
+                <option *ngFor="let yesNoOption of yesNoOptions" [ngValue]="yesNoOption.value">
+                  {{yesNoOption.option}}</option>
+              </select>
+            </div>
+            <br />
+            <div *ngIf="isSalesOffFormVisible">
+              <table class="table table-responsive" formArrayName="salesOffDetails">
+                <tr>
+                  <th>Divisional Office</th>
+                  <th>Divisional Office Manager present</th>
+                  <th>DRSM present</th>
+                </tr>
+                <tr *ngFor="let salesOffCtrl of telecallCadenceForm.get('salesOffDetails').controls; let i = index;"
+                  [formGroupName]="i">
+                  <td>
+                    <h5>{{salesOffCtrl.controls.salesOffName.value}}</h5>
+                  </td>
+                  <td>
+                    <select name="doManager" class="form-control" formControlName="doManager">
+                      <option value="" selected disabled>-- Select --</option>
+                      <option *ngFor="let yesNoOption of yesNoOptions" [ngValue]="yesNoOption.value">
+                        {{yesNoOption.option}}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select name="drsm" class="form-control" formControlName="drsm">
+                      <option value="" selected disabled>-- Select --</option>
+                      <option *ngFor="let yesNoOption of yesNoOptions" [ngValue]="yesNoOption.value">
+                        {{yesNoOption.option}}</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div style="text-align: center">
+              <button class="btn btn-ioc" [disabled]="buttonDisable">
+                {{ buttonDisable ? 'Please Wait...' : 'Submit' }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Projects Section-->
+<section class="projects no-padding-top">
+
+
+</section>
+<!-- Client Section-->
+<section class="client no-padding-top">
+  <div class="container-fluid">
+    <div class="row">
+
+    </div>
+  </div>
+</section>
+<!-- Feeds Section-->
+<section class="feeds no-padding-top">
+  <div class="container-fluid">
+    <div class="row">
+
+    </div>
+  </div>
+</section>
+<!-- Updates Section                                                -->
+<section class="updates no-padding-top">
+  <div class="container-fluid">
+    <div class="row">
+
+    </div>
+  </div>
+</section>
+<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="tele" position="bottom-center"></p-toast>

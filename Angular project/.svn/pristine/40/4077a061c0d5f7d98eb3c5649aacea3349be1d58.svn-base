@@ -1,0 +1,21 @@
+<div >
+  <div style="text-align: center" >
+    <h3>State Office Dhruva Compliant Scores (in %)</h3>
+  </div>
+  <div *ngIf="isMobile">
+      <div class="card-body">
+        <canvas baseChart [datasets]="barChartStateData" [labels]="barChartStateLabels" [options]="barChartOptions"
+          [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartStateType"
+          [colors]="barChartStateColors" (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+    </div>
+    <div *ngIf="!isMobile">
+      <div class="card-body">
+        <canvas height="70%" baseChart [datasets]="barChartStateData" [labels]="barChartStateLabels" [options]="barChartOptions"
+          [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartStateType"
+          [colors]="barChartStateColors" (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>    
+    </div>
+  </div>

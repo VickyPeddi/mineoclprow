@@ -1,0 +1,5 @@
+1. run ng build command file
+2. place .htaccess file in the dist/<project> folder
+3. locate index.html file and change the path of favicon by appending "/dhruva2" for eg "/dhruva2/assets/....."
+4. rename the folder inside dist to "dhruva2"
+5. place/give the folder to http server's "htdocs" folder by first deleting the existing folder in that server

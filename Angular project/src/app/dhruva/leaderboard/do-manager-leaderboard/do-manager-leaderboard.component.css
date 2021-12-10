@@ -1,0 +1,18 @@
+.below35{
+    color: red;
+}
+
+.between35to70{
+    color: orange;
+}
+
+.above70{
+    color: green;
+}
+.morewidth{
+    width: 150px;
+}
+
+.lesswidth{
+    width: 100px;
+}

@@ -1,0 +1,31 @@
+<%-- 
+    Document   : exception
+    Created on : Feb 18, 2021, 1:05:36 PM
+    Author     : Aakash Jar
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Site Maintenance</title>
+        <style>
+            body { text-align: center; padding: 150px; }
+            h1 { font-size: 50px; color: rgba(0,18,89);}
+            p { color: #ef7e3e;}
+            body { font: 20px Helvetica, sans-serif; color: #333; }
+            article { display: block; text-align: left; width: 650px; margin: 0 auto; }
+            a { color: #dc8100; text-decoration: none; }
+            a:hover { color: #333; text-decoration: none; }
+        </style>
+    </head>
+    <body>
+        <article>
+            <img src="img/Indianoil.jpg">
+            <h1>We&rsquo;ll be back soon!</h1>
+            <div>
+                <p>Sorry for the inconvenience but we&rsquo;re performing some maintenance at the moment. We&rsquo;ll be back online shortly!</p>
+            </div>
+        </article>
+    </body>
+</html>

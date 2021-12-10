@@ -1,0 +1,15 @@
+<section class="dashboard-counts no-padding-bottom">
+	<div class="card" style="margin-left: 10px; background-color: #e4e6ea;width: 99%">
+		<div class="row">
+			<!-- <a class="btn" style="width: 100px;"><i>Region : </i></a> -->
+			<a class="btn btn-outline-success" routerLink="state-office" routerLinkActive="active"
+				style="width:75px;">SO</a>&nbsp;&nbsp;
+			<a class="btn btn-outline-ioc" style="width:75px;" routerLink="division-office"
+				routerLinkActive="active">DO</a>&nbsp;&nbsp;
+			<a class="btn btn-outline-danger" routerLink="sales-area" style="width:75px;"
+				routerLinkActive="active">RSA</a>
+			<hr />
+		</div>
+		<router-outlet></router-outlet>
+	</div>
+</section> 

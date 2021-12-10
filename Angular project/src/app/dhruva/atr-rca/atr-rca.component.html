@@ -1,0 +1,317 @@
+<!-- Page Header-->
+<header class="page-header">
+  <div class="container-fluid">
+    <h2 class="no-margin-bottom">ATR on RCA-Tail ROs</h2>
+  </div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <h3 class="h4">List of Identified Retail Outlets</h3>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" aria-hidden="true"><i class="fa fa-search"></i></span>
+              <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+                placeholder="Search">
+            </div>
+          </div>
+        </div>
+        <cdk-virtual-scroll-viewport style="height: 500px;width: 100%" itemSize="100">
+          <table class="table container-fluid table-responsive table-hover">
+            <thead>
+              <th>Sr. No.</th>
+              <th>RO Code</th>
+              <th>RO Name</th>
+              <th>Divisional Office</th>
+              <th>Location</th>
+              <th>Archetype</th>
+              <th>Phase</th>
+              <th>Sales Area</th>
+              <th>Sau Ka Sankalp</th>
+              <th>Attainer</th>
+              <th colspan="5">Root Cause Actions</th>
+            </thead>
+            <tbody>
+              <tr *ngIf="!employeeDhruvaRODatasRCAFiltered">
+                    <td colspan="12">Please wait!!! Populating RO list</td>
+              </tr>
+              <tr *cdkVirtualFor="let listItem of employeeDhruvaRODatasRCAFiltered | filter:searchText; let i = index;"
+                [class.highlighted]="listItem.roCode === currentRoCode">
+                <td>{{i + 1}}</td>
+                <td title="RO code">{{listItem.roCode}}</td>
+                <td title="RO Name">{{listItem.roName}}</td>
+                <td title="Divisional Office">{{listItem.doName}}</td>
+                <td title="Location">{{listItem.location}}</td>
+                <td title="Location">{{listItem.archetypeName}}</td>
+                <td title="Phase">{{listItem.phase}}</td>
+                <td title="Sales Area">{{listItem.salesAreaName}}</td>
+                <td title="Sau ka Sankalp">{{listItem.sauKaSankalp==='Y'?'Yes':'No'}}</td>
+                <td title="Attainer">{{listItem.attainer==='Y'?'Yes':'No'}}</td>
+                <td>
+                  <button title="Root Cause 1" data-toggle="modal" data-target="#exampleModalLong"
+                   
+                    [class]="alreadyFilledROsMap.get(listItem.roCode) && alreadyFilledROsMap.get(listItem.roCode).get(1)?'btn btn-success btn-sm':'btn btn-danger btn-sm' "
+                     (click)="onSelectRORootCause(listItem, 1)">1</button>
+                </td>
+                <td>
+                  <button title="Root Cause 2" data-toggle="modal" data-target="#exampleModalLong"
+                  [class]="alreadyFilledROsMap.get(listItem.roCode) && alreadyFilledROsMap.get(listItem.roCode).get(2)?'btn btn-success btn-sm':'btn btn-danger btn-sm' "
+                  (click)="onSelectRORootCause(listItem, 2)">2</button>
+                </td>
+                <td>
+                  <button title="Root Cause 3" data-toggle="modal" data-target="#exampleModalLong"
+                  [class]="alreadyFilledROsMap.get(listItem.roCode) && alreadyFilledROsMap.get(listItem.roCode).get(3)?'btn btn-success btn-sm':'btn btn-danger btn-sm' "
+  
+                  (click)="onSelectRORootCause(listItem, 3)">3</button>
+                </td>
+                <td>
+                  <button title="Root Cause 4" data-toggle="modal" data-target="#exampleModalLong"
+                  [class]="alreadyFilledROsMap.get(listItem.roCode) && alreadyFilledROsMap.get(listItem.roCode).get(4)?'btn btn-success btn-sm':'btn btn-danger btn-sm' "
+                    class="btn btn-outline-secondary btn-sm" (click)="onSelectRORootCause(listItem, 4)">4</button>
+                </td>
+                <td>
+                  <button title="Root Cause 5" data-toggle="modal" data-target="#exampleModalLong"
+                  [class]="alreadyFilledROsMap.get(listItem.roCode) && alreadyFilledROsMap.get(listItem.roCode).get(5)?'btn btn-success btn-sm':'btn btn-danger btn-sm' "
+                  (click)="onSelectRORootCause(listItem, 5)">5</button>
+                </td>
+              </tr>
+              <tr *ngIf="(employeeDhruvaRODatasRCAFiltered | filter:searchText)?.length == 0">
+                <td colspan="13" style="text-align: center">
+                  <h5>Nothing found for: {{searchText}} </h5>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Dashboard Header Section    -->
+
+<!--Added By Kaushal-->
+<!-- Requirement does not allow us to make attribute name come from DB. Though all of them are stored in MST_RCA_ATTRIBUTE table for maaping
+it with tran table. While adding any new attribute please add the same in MST_RCA_ATTRIBUTE table also. -->
+
+<div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" [class.modal-xl]="submittedRootCauseDatas.length > 0" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">RCA Form for Root Cause {{currentPart}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div [class.col-md-6]="submittedRootCauseDatas!=undefined && submittedRootCauseDatas.length > 0"
+            [class.col-md-12]="submittedRootCauseDatas!=undefined && submittedRootCauseDatas.length == 0">
+            <div *ngIf="currentRoCode != undefined">
+              <form (ngSubmit)="onSaveRootCauseAnalysisForm()" [formGroup]="dhruvaRootCauseAnalysisForm">
+                <div class="form-group">
+                  <label for="roName">Customer Name:</label>
+                  <input id="roName" name="roName" class="form-control" formControlName="roName" readonly />
+                </div>
+                <div class="form-group">
+                  <label for="archetypeName">Archetype Name:</label>
+                  <input id="archetypeName" class="form-control" name="archetypeName" formControlName="archetypeName"
+                    readonly />
+                </div>
+                <div class="form-group">
+                  <label for="attainer">Attainer</label>
+                  <select name="attainer" class="form-control" formControlName="attainer">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let yesNoOption of yesNoOptions" [ngValue]="yesNoOption.value">
+                      {{yesNoOption.option}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="sauKaSankalp">100 Ka Sankalp</label>
+                  <select name="sauKaSankalp" class="form-control" formControlName="sauKaSankalp">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let yesNoOption of yesNoOptions" [ngValue]="yesNoOption.value">
+                      {{yesNoOption.option}}</option>
+                  </select>
+                </div>
+                <!-- <div class="form-group" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="rootCauseRank">Root Cause Rank</label>
+                  <select name="rootCauseRank" class="form-control" formControlName="rootCauseRank">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let rootCauseRankOption of rootCauseRanks" [ngValue]="rootCauseRankOption.value">
+                      {{rootCauseRankOption.rootCauseRank}}</option>
+                  </select>
+                </div> -->
+
+                <div class="form-group" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="rootCause1">Root Cause<i style="color: red">*</i></label>
+                  <select name="rootCause1" class="form-control" formControlName="rootCause1"
+                    (change)="onSelectRootCause1($event)">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let rootCauseOption of rootCauses | async" [value]="rootCauseOption.srNo">
+                      {{rootCauseOption.cause}}</option>
+                  </select>
+                </div>
+                <div class="form-group" [hidden]="!isRootCauseOther1" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="rootCauseOther1">Please Specify Other Route Cause</label>
+                  <input type="text" name="rootCauseOther1" class="form-control" formControlName="rootCauseOther1" />
+                </div>
+                <div class="form-group" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="rootCauseIssue1">Issue Identified<i style="color: red">*</i></label>
+                  <select name="rootCauseIssue1" class="form-control" formControlName="rootCauseIssue1"
+                    (change)="onSelectRootCauseIssue1($event)">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let rootCauseIssueOption of rootCauseIssues1 | async"
+                      [value]="rootCauseIssueOption.srNo">
+                      {{rootCauseIssueOption.issue}}</option>
+                  </select>
+                </div>
+                <div class="form-group" [hidden]="!isRootCauseIssueOther1" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="rootCauseIssueOther1">Please Specify Issue identified</label>
+                  <input type="text" name="rootCauseIssueOther1" class="form-control"
+                    formControlName="rootCauseIssueOther1" />
+                </div>
+                <div class="form-group" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="rootCauseIssueSupport1">Support Identified<i style="color: red">*</i></label>
+                  <select name="rootCauseIssueSupport1" class="form-control" formControlName="rootCauseIssueSupport1"
+                    (change)="onSelectRootCauseIssueSupport1($event)">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let rootCauseIssueSupportOption of rootCauseIssueSupportOptions1 | async"
+                      [value]="rootCauseIssueSupportOption.srNo">
+                      {{rootCauseIssueSupportOption.optionText}}</option>
+                  </select>
+                </div>
+                <div class="form-group" [hidden]="!isRootCauseIssueSupportOther1"
+                  *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="rootCauseIssueSupportOther1">If Support Any Other (Please type in)</label>
+                  <input type="text" name="rootCauseIssueSupportOther1" class="form-control"
+                    formControlName="rootCauseIssueSupportOther1" />
+                </div>
+
+                <div class="form-group" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="workScope">Scope of Work (By IOC/ Dealer)<i style="color: red">*</i></label>
+                  <select name="workScope" class="form-control" formControlName="workScope">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let workScopeOption of workScopeOptions" [value]="workScopeOption.value">
+                      {{workScopeOption.workScope}}</option>
+                  </select>
+                </div>
+                <div class="form-group" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="targetSupportStart">Target Support Start Date<i style="color: red">*</i></label>
+                  <input type="date" name="targetSupportStart" class="form-control"
+                    formControlName="targetSupportStart" />
+                </div>
+                <div class="form-group" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="targetSupportEnd">Target Support End Date<i style="color: red">*</i></label>
+                  <input type="date" name="targetSupportEnd" class="form-control" formControlName="targetSupportEnd"
+                    (change)="calculateDelayDays($event)" />
+                </div>
+                <div class="form-group" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="actualSupportStart">Actual Support Start Date<i style="color: red">*</i></label>
+                  <input type="date" name="actualSupportStart" class="form-control"
+                    formControlName="actualSupportStart" />
+                </div>
+                <div class="form-group">
+                  <label for="actualSupportEnd">Actual Support End Date</label>
+                  <input type="date" name="actualSupportEnd" class="form-control" formControlName="actualSupportEnd"
+                    (change)="computeWorkStatus($event)" />
+                </div>
+                <div class="form-group">
+                  <label for="approvalStatus">Approval Status</label>
+                  <select name="approvalStatus" class="form-control" formControlName="approvalStatus">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let approvalStatusOption of approvalStatusOptions"
+                      [value]="approvalStatusOption.value">
+                      {{approvalStatusOption.approvalStatus}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="pendingWith">Pending with</label>
+                  <select name="pendingWith" class="form-control" formControlName="pendingWith">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let pendingWithOption of pendingWithOptions" [value]="pendingWithOption.value">
+                      {{pendingWithOption.pendingWith}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="lastVisit">Last visited on Date</label>
+                  <input type="date" name="lastVisit" class="form-control" formControlName="lastVisit"
+                    (change)="calculateLastVisitDays($event)" />
+                </div>
+                <div class="form-group">
+                  <label for="supportStatus">Status of Support on last visit</label>
+                  <select name="supportStatus" class="form-control" formControlName="supportStatus"
+                    (change)="onSelectSupportStatus($event)">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let supportStatusOption of supportStatusOptions"
+                      [value]="supportStatusOption.value">
+                      {{supportStatusOption.supportStatus}}</option>
+                  </select>
+                </div>
+                <div class="form-group" [hidden]="!isSupportStatusOther">
+                  <label for="supportStatusOther">Please Specify Status of Support on last visit</label>
+                  <input type="text" name="supportStatusOther" class="form-control"
+                    formControlName="supportStatusOther" />
+                </div>
+                <div class="form-group">
+                  <label for="comments">Comments</label>
+                  <textarea name="comments" class="form-control" formControlName="comments"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="lastVisitDays">Days since last visit</label>
+                  <input type="number" name="lastVisitDays" class="form-control" formControlName="lastVisitDays"
+                    readonly />
+                </div>
+                <div class="form-group" >
+                  <label for="workStatus">Current Status of Work Identified</label>
+                  <select name="workStatus" class="form-control" formControlName="workStatus" disabled>
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let workStatusOption of workStatusOptions" [value]="workStatusOption.value">
+                      {{workStatusOption.workStatus}}</option>
+                  </select>
+                </div>
+                <div class="form-group" *ngIf="submittedRootCauseDatas.length == 0">
+                  <label for="daysDelay">No. of days delayed (Today - target support end date)</label>
+                  <input type="number" name="daysDelay" class="form-control" formControlName="daysDelay" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="reconstitution">If Reconstitution is carried out, Whether the sales of RO will be
+                    improved</label>
+                  <select name="reconstitution" class="form-control" formControlName="reconstitution">
+                    <option value="" selected disabled>-- Select --</option>
+                    <option *ngFor="let yesNoOption of yesNoOptions" [ngValue]="yesNoOption.value">
+                      {{yesNoOption.option}}</option>
+                  </select>
+                </div>
+                <div style="text-align: left">
+                  <i style="color: red">* Marked fields are mandatory</i>
+                </div>
+                <div style="text-align: center">
+                  <button class="btn btn-ioc"
+                    [disabled]="dhruvaRootCauseAnalysisForm.invalid && submittedRootCauseDatas.length == 0">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="submittedRootCauseDatas.length > 0">
+            <table class="table table-bordered">
+              <tr>
+                <th colspan="2" style="text-align: center">Already submitted values</th>
+              </tr>
+              <tr *ngFor="let submittedRootCauseData of submittedRootCauseDatas">
+                <th>{{submittedRootCauseData.attributeName}}</th>
+                <td>{{submittedRootCauseData.value}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="atr" position="bottom-center"></p-toast>
+  </div>
+</div>

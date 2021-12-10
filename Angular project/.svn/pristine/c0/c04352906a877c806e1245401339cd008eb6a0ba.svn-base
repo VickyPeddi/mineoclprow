@@ -1,0 +1,15 @@
+/* .table-striped tbody tr:nth-of-type(odd){
+    background-color: #e5e5f1;
+}
+
+.table-striped tbody tr:nth-of-type(even){
+    background-color: #dccfcf;
+} */
+
+.sorting_asc {
+    color:  red !important;
+}
+
+.sorting_desc{
+    color: green !important;
+}

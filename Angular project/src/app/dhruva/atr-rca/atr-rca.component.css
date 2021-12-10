@@ -1,0 +1,19 @@
+.highlighted {
+	background-color: rgb(239, 126, 62);
+}
+
+:host ::ng-deep button {
+	margin-right: .25em;
+}
+
+:host ::ng-deep .custom-toast .ui-toast-message {
+	color: #ffffff;
+	background: #FC466B;
+	background: -webkit-linear-gradient(to right, rgb(251, 138, 63), rgb(112, 252, 70));
+	background: rgb(255, 183, 197);
+	/*linear-gradient(to right, rgb(255, 145, 0), rgb(72, 255, 0)); */
+}
+
+:host ::ng-deep .custom-toast .ui-toast-close-icon {
+	color: #ffffff;
+}

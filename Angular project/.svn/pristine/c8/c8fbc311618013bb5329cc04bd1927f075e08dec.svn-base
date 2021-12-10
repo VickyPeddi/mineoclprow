@@ -1,0 +1,163 @@
+<!-- Page Header-->
+<header class="page-header">
+  <div class="container-fluid">
+    <h2 class="no-margin-bottom">Dhruva FO Leaderboard</h2>
+  </div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <h3 class="h4">Leaderboard Scores as on {{updatedOn}}</h3>
+      </div>
+      <div class="card-body" style="margin-right: 19%">
+        <p-table #dt [columns]="cols" [value]="foLeaderboardDatas" [scrollable]="true" [paginator]="true" [rows]="6"
+          [globalFilterFields]="['soMaster','doMaster','saMaster']">
+          <ng-template pTemplate="caption">
+            <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Export" (click)="dt.exportCSV()"
+              style="float:left"></button>
+            <div style="text-align: right">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="25" placeholder="Search"
+                (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" style="width: 100px" style="width: 100px" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                  ariaLabelDesc="Activate to sort in descending order"
+                  ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-foLeaderboardData>
+            <tr>
+              <td style="width: 100px" title="State Office">{{foLeaderboardData.soMaster}}</td>
+              <td style="width: 100px" title="Divisional Office">{{foLeaderboardData.doMaster}}</td>
+              <td style="width: 100px" title="Sales Area">{{foLeaderboardData.saMaster}}</td>
+              <td style="width: 100px" title="All India Rank" [attr.class]="foLeaderboardData.rank | foColorCode">{{foLeaderboardData.rank}}</td>
+              <td style="width: 100px" title="Dhruva ROs">{{foLeaderboardData.totalDhruva}}</td>
+              <td style="width:100px" title="Dhruva Compliant"
+                [attr.class]="foLeaderboardData.dhruvaCompliantRank | foColorCode">
+                {{foLeaderboardData.dhruvaCompliant}}</td>
+              <td style="width:100px" title="Dhruva Compliant Rank"
+                [attr.class]="foLeaderboardData.dhruvaCompliantRank | foColorCode">
+                {{foLeaderboardData.dhruvaCompliantRank}}</td>
+              <td style="width:100px" title="Awesum (W:3)" [attr.class]="foLeaderboardData.awesumRank | foColorCode">
+                  {{foLeaderboardData.awesum}}</td>
+                <td style="width:100px" title="Awesum Rank" [attr.class]="foLeaderboardData.awesumRank | foColorCode">
+                  {{foLeaderboardData.awesumRank}}</td>
+                <td style="width:100px" title="Facility Completion (W:2)"
+                  [attr.class]="foLeaderboardData.facilityCompletionRank | foColorCode">
+                  {{foLeaderboardData.facilityCompletion}}</td>
+                <td style="width:100px" title="Facility Completion Rank"
+                  [attr.class]="foLeaderboardData.facilityCompletionRank | foColorCode">
+                  {{foLeaderboardData.facilityCompletionRank}}</td>
+                <td style="width:100px" title="Spot Check (W:2)" [attr.class]="foLeaderboardData.spotCheckRank | foColorCode">
+                  {{foLeaderboardData.spotCheck}}</td>
+                <td style="width:100px" title="Spot Check Rank" [attr.class]="foLeaderboardData.spotCheckRank | foColorCode">
+                  {{foLeaderboardData.spotCheckRank}}</td>
+                <td style="width:100px" title="CA Evaluation (W:2)"
+                  [attr.class]="foLeaderboardData.caEvaluationRank | foColorCode">
+                  {{foLeaderboardData.caEvaluation}}</td>
+                <td style="width:100px" title="CA EvaluationRank"
+                  [attr.class]="foLeaderboardData.caEvaluationRank | foColorCode">
+                  {{foLeaderboardData.caEvaluationRank}}</td>
+                <td style="width:100px" title="Activity Completion (W:1)"
+                  [attr.class]="foLeaderboardData.activityCompletionRank | foColorCode">
+                  {{foLeaderboardData.activityCompletion}}</td>
+                <td style="width:100px" title="Activity Completion Rank"
+                  [attr.class]="foLeaderboardData.activityCompletionRank | foColorCode">
+                  {{foLeaderboardData.activityCompletionRank}}</td>
+                <td style="width:100px" title="mPower Plus (W:1)" [attr.class]="foLeaderboardData.mPowerRank | foColorCode">
+                  {{foLeaderboardData.mPower}}</td>
+                <td style="width:100px" title="mPower Plus Rank" [attr.class]="foLeaderboardData.mPowerRank | foColorCode">
+                  {{foLeaderboardData.mPowerRank}}</td>
+                <td style="width:100px" title="FO Quiz (W:1)" [attr.class]="foLeaderboardData.foQuizRank | foColorCode">
+                  {{foLeaderboardData.foQuiz}}</td>
+                <td style="width:100px" title="FO Quiz Rank" [attr.class]="foLeaderboardData.foQuizRank | foColorCode">
+                  {{foLeaderboardData.foQuizRank}}</td>
+                <td style="width:100px" title="RCA (W:1)" [attr.class]="foLeaderboardData.rcaRank | foColorCode">
+                  {{foLeaderboardData.rca}}</td>
+                <td style="width:100px" title="Rank" [attr.class]="foLeaderboardData.rcaRank | foColorCode">
+                  {{foLeaderboardData.rcaRank}}</td>
+                <td style="width:100px" title="CA Training (W:1)" [attr.class]="foLeaderboardData.caTrainingRank | foColorCode">
+                  {{foLeaderboardData.caTraining}}</td>
+                <td style="width:100px" title="CA Training Rank" [attr.class]="foLeaderboardData.caTrainingRank | foColorCode">
+                  {{foLeaderboardData.caTrainingRank}}</td>
+
+                <td style="width:100px" title="FIT (W:2)" [attr.class]="foLeaderboardData.fitRank | foColorCode">
+                  {{foLeaderboardData.fit}}</td>
+                <td style="width:100px" title="FIT Rank" [attr.class]="foLeaderboardData.fitRank | foColorCode">
+                  {{foLeaderboardData.fitRank}}</td>
+                <td style="width:100px" title="SEVA (W:2)" [attr.class]="foLeaderboardData.sevaRank | foColorCode">
+                  {{foLeaderboardData.seva}}</td>
+                <td style="width:100px" title="SEVA Rank" [attr.class]="foLeaderboardData.sevaRank | foColorCode">
+                  {{foLeaderboardData.sevaRank}}</td>
+                <!-- <td style="width:100px" title="Sau Ka Sankalp (W:1)"
+                  [attr.class]="foLeaderboardData.sauKaSankalpRank | foColorCode">
+                  {{foLeaderboardData.sauKaSankalp}}</td>
+                <td style="width:100px" title="Sau Ka Sankalp Rank"
+                  [attr.class]="foLeaderboardData.sauKaSankalpRank | foColorCode">
+                  {{foLeaderboardData.sauKaSankalpRank}}</td> -->
+                <td style="width:100px" title="Attainer (W:1)" [attr.class]="foLeaderboardData.attainerRank | foColorCode">
+                  {{foLeaderboardData.attainer}}</td>
+                <td style="width:100px" title="Attainer Rank" [attr.class]="foLeaderboardData.attainerRank | foColorCode">
+                  {{foLeaderboardData.attainerRank}}</td>
+                <td style="width:100px" title="Xperience (W:1)" [attr.class]="foLeaderboardData.xperienceRank | foColorCode">
+                  {{foLeaderboardData.xperience}}</td>
+                <td style="width:100px" title="Xperience Rank" [attr.class]="foLeaderboardData.xperienceRank | foColorCode">
+                  {{foLeaderboardData.xperienceRank}}</td>
+              <td style="width: 100px" title="Dhruva Index"
+                [attr.class]="foLeaderboardData.rank | foColorCode">
+                {{foLeaderboardData.finalDhruvaIndex}}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            Total records: {{foLeaderboardDatas?.length}}
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <h3 class="h4">Weightage information</h3>
+      </div>
+      <div class="card-body">
+        <table class="container-fluid table table-responsive">
+          <tr>
+            <th>Awesum: {{weightageData.awesum}}</th>
+            <th>Facility Completion: {{weightageData.facility}}</th>
+            <th>Spot Check: {{weightageData.spot}}</th>
+            <th>CA Evaluation: {{weightageData.caEval}}</th>
+            <th>Activity Completion: {{weightageData.activity}}</th>
+            <th>mPower Plus: {{weightageData.mpower}}</th>
+          </tr>
+          <tr>
+            <th>FO Quiz: {{weightageData.quiz}}</th>
+            <th>RCA: {{weightageData.rca}}</th>
+            <th>CA Training: {{weightageData.caTrain}}</th>
+            <!-- <th>Telecall: {{weightageData.telecall}}</th> -->
+            <th>FIT: {{weightageData.fit}}</th>
+            <th>SEVA: {{weightageData.seva}}</th>
+            <!-- <th>Sau Ka Sankalp: {{weightageData.sks}}</th> -->
+          </tr>
+          <tr>
+            <th>Attainer: {{weightageData.attainer}}</th>
+            <th>Xperience: {{weightageData.xperience}}</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

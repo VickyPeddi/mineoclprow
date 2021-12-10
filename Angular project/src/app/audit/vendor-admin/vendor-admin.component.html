@@ -1,0 +1,145 @@
+<!-- Page Header-->
+<header class="page-header">
+  <div class="container-fluid">
+    <h2 class="no-margin-bottom">Vendor Administration</h2>
+  </div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+  <div class="container-fluid">
+    <div class="col-md-8 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3>Input Information</h3>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSaveVendorData()" [formGroup]="vendorInfoForm">
+            <div class="form-group">
+              <label for="vendorCode">Vendor Code:</label>
+              <input type="text" minlength="8" id="vendorCode" class="form-control" formControlName="vendorCode"
+                (keyup)="populateVendorDetails($event)"
+                [ngClass]="{ 'is-invalid': submitted && f.vendorCode.errors }" />
+              <small *ngIf="isLoading" id="vendorCodeHelp" class="form-text text-muted">Fetching details... please
+                wait.</small>
+              <div *ngIf="submitted && f.vendorCode.errors" class="invalid-feedback">
+                <div *ngIf="f.vendorCode.errors.required">Vendor Code is required</div>
+                <div *ngIf="f.vendorCode.errors.minlength">Vendor Code must be at least 8 digits</div>
+                <div *ngIf="f.vendorCode.errors.pattern">Must be a number</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="vendorName">Name of the Vendor:</label>
+              <input id="vendorName" class="form-control" formControlName="vendorName" readonly />
+              <div *ngIf="submitted && f.vendorName.errors" class="invalid-feedback">
+                <div *ngIf="f.vendorName.errors.required">Vendor code is invalid or not available</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="vendorAddress">Address of the Vendor:</label>
+              <input id="vendorAddress" class="form-control" formControlName="vendorAddress" readonly />
+              <div *ngIf="submitted && f.vendorAddress.errors" class="invalid-feedback">
+                <div *ngIf="f.vendorAddress.errors.required">Vendor code is invalid or not available</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="vendorWorkOrder">Work Order Details:</label>
+              <input id="vendorWorkOrder" class="form-control" formControlName="vendorWorkOrder"
+                [ngClass]="{ 'is-invalid': submitted && f.vendorWorkOrder.errors }" />
+              <div *ngIf="submitted && f.vendorWorkOrder.errors" class="invalid-feedback">
+                <div *ngIf="f.vendorWorkOrder.errors.required">Work Order Details is required</div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="vendorValidFrom">Valid from:</label>
+                <input type="date" id="vendorValidFrom" class="form-control" formControlName="vendorValidFrom"
+                  [ngClass]="{ 'is-invalid': submitted && f.vendorValidFrom.errors }" />
+                <div *ngIf="submitted && f.vendorValidFrom.errors" class="invalid-feedback">
+                  <div *ngIf="f.vendorValidFrom.errors.required">Valid from date is required</div>
+                  <div *ngIf="f.vendorValidFrom.errors.pastDate">Valid from cannot be past dated</div>
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="vendorValidTo">Valid to:</label>
+                <input type="date" id="vendorValidTo" class="form-control" formControlName="vendorValidTo"
+                  [ngClass]="{ 'is-invalid': submitted && f.vendorValidTo.errors }" />
+                <div *ngIf="submitted && f.vendorValidTo.errors" class="invalid-feedback">
+                  <div *ngIf="f.vendorValidTo.errors.required">Valid to date is required</div>
+                  <div *ngIf="f.vendorValidTo.errors.pastDate">Valid to cannot be past dated</div>
+                  <div *ngIf="f.vendorValidTo.errors.mustComply">Date duration not valid</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="vendorAdminName">Name of the Vendor Admin:</label>
+              <input id="vendorAdminName" class="form-control" formControlName="vendorAdminName"
+                [ngClass]="{ 'is-invalid': submitted && f.vendorAdminName.errors }" />
+              <div *ngIf="submitted && f.vendorAdminName.errors" class="invalid-feedback">
+                <div *ngIf="f.vendorAdminName.errors.required">Vendor Admin Name is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="vendorAdminEmail">Email ID of the Vendor Admin:</label>
+              <input id="vendorAdminEmail" class="form-control" formControlName="vendorAdminEmail"
+                [ngClass]="{ 'is-invalid': submitted && f.vendorAdminEmail.errors }" />
+              <div *ngIf="submitted && f.vendorAdminEmail.errors" class="invalid-feedback">
+                <div *ngIf="f.vendorAdminEmail.errors.required">Email is required</div>
+                <div *ngIf="f.vendorAdminEmail.errors.email">Email must be a valid email address</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="vendorAdminCell">Mobile number of the Vendor Admin:</label>
+              <input type="text" maxlength="10" id="vendorAdminCell" class="form-control"
+                formControlName="vendorAdminCell" [ngClass]="{ 'is-invalid': submitted && f.vendorAdminCell.errors }" />
+              <div *ngIf="submitted && f.vendorAdminCell.errors" class="invalid-feedback">
+                <div *ngIf="f.vendorAdminCell.errors.required">Mobile number is required</div>
+                <div *ngIf="f.vendorAdminCell.errors.minlength">Mobile number must be at least 10 digits</div>
+                <div *ngIf="f.vendorAdminCell.errors.maxlength">Mobile number must be at least 10 digits</div>
+                <div *ngIf="f.vendorAdminCell.errors.pattern">Must be a mobile number</div>
+              </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary" style="width: 100%"
+              [disabled]="buttonDisable">{{buttonDisable ? 'Please Wait...' : 'Save details'}}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Dashboard Header Section    -->
+<section class="dashboard-header">
+  <div class="container-fluid">
+  </div>
+</section>
+<!-- Projects Section-->
+<section class="projects no-padding-top">
+
+
+</section>
+<!-- Client Section-->
+<section class="client no-padding-top">
+  <div class="container-fluid">
+    <div class="row">
+
+    </div>
+  </div>
+</section>
+<!-- Feeds Section-->
+<section class="feeds no-padding-top">
+  <div class="container-fluid">
+    <div class="row">
+
+    </div>
+  </div>
+</section>
+<!-- Updates Section                                                -->
+<section class="updates no-padding-top">
+  <div class="container-fluid">
+    <div class="row">
+
+    </div>
+  </div>
+</section>
+<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="vendor-admin" position="bottom-center">
+</p-toast>

@@ -1,0 +1,97 @@
+<!-- Page Header-->
+<header class="page-header">
+	<div class="container-fluid">
+		<h2 class="no-margin-bottom">Resources</h2>
+	</div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+	<div class="container-fluid">
+		<div class="alert alert-primary" role="alert" *ngIf="isWaiting">
+			Please wait... Populating resource files <span style="font-size: 25px">😄</span>
+		</div>
+		<div class="accordion" id="resourcesAccordion" *ngIf="!isWaiting">
+			<div class="card" *ngFor="let resourcesData of resourcesDatas; let i = index;">
+				<div class="card-header" [id]="'heading' + i">
+					<h2 class="mb-0">
+						<button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + i"
+							aria-expanded="true" [attr.aria-controls]="'collapse' + i">
+							{{i + 1}}). {{resourcesData.categoryName}}
+						</button>
+					</h2>
+				</div>
+				<div [id]="'collapse' + i" class="collapse" [attr.aria-labelledby]="'heading' + i"
+					data-parent="#resourcesAccordion">
+					<div class="card-body">
+						<div class="row">
+							<table class="table table-hover table-striped" *ngIf="resourcesData.resourceFiles.length > 0">
+								<tr>
+									<th>Sr. No.</th>
+									<th>Resource Name</th>
+									<th>Action</th>
+								</tr>
+								<tr *ngFor="let resourceFile of resourcesData.resourceFiles; let j = index;">
+									<td>{{j + 1}}</td>
+									<td>{{resourceFile.resourceName}}</td>
+									<td><a (click)="downloadResourceFile(resourceFile)" style="cursor: pointer; color: steelblue"><i
+												class="fa fa-cloud-download fa-3x" aria-hidden="true"></i></a>
+									</td>
+								</tr>
+							</table>
+							<h3 class="h4" *ngIf="resourcesData.resourceFiles.length == 0">Nothing in this category yet <span style="font-size: 25px">😢</span></h3>
+							<!-- <div class="col-md-4 col-12">
+								<div class="card">
+									<div class="card-header">
+										{{resourceFile.resourceName}}
+									</div>
+									<div class="card-body">
+										<div class="row align-items-center">
+											<div class="col-6"><i class="fa fa-file-text fa-4x" aria-hidden="true"></i></div>
+											<div class="col-6"><button class="btn btn-ioc"
+													(click)="downloadResourceFile(resourceFile.resourceId)">Download</button></div>
+										</div>
+									</div>
+								</div>
+							</div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Dashboard Header Section    -->
+<section class="dashboard-header">
+	<div class="container-fluid">
+	</div>
+</section>
+<!-- Projects Section-->
+<section class="projects no-padding-top">
+
+
+</section>
+<!-- Client Section-->
+<section class="client no-padding-top">
+	<div class="container-fluid">
+		<div class="row">
+
+		</div>
+	</div>
+</section>
+<!-- Feeds Section-->
+<section class="feeds no-padding-top">
+	<div class="container-fluid">
+		<div class="row">
+
+		</div>
+	</div>
+</section>
+<!-- Updates Section                                                -->
+<section class="updates no-padding-top">
+	<div class="container-fluid">
+		<div class="row">
+
+		</div>
+	</div>
+</section>
+<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="dhruva-resource" position="bottom-center"></p-toast>

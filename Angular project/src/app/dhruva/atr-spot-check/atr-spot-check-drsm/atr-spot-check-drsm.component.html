@@ -1,0 +1,100 @@
+<header class="page-header">
+	<div class="container-fluid">
+		<h2 class="no-margin-bottom">ATR on Spot Check for DRSM</h2>
+	</div>
+</header>
+<section class="dashboard-counts no-padding-bottom">
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header d-flex align-items-center">
+				<h3 class="h4">List of Identified Retail Outlets</h3>
+			</div>
+			<div class="card-body" *ngIf="spotCheckDRSMComplianceDatas.length == 0">
+				<h3 class="h4">No Retail Outlets Identified for this request <span style="font-size: 25px">😢</span></h3>
+			</div>
+			<div class="card-body" *ngIf="spotCheckDRSMComplianceDatas.length > 0">
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" aria-hidden="true"><i class="fa fa-search"></i></span>
+							<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+								placeholder="Search">
+						</div>
+					</div>
+				</div>
+				<cdk-virtual-scroll-viewport style="height: 500px;width: 100%" itemSize="10">
+					<table class="table table-hover">
+						<thead>
+							<th>Sr. No.</th>
+							<th>Inspection No.</th>
+							<th>RO Code</th>
+							<th>RO Name</th>
+							<th>Location</th>
+							<th>Sales Area</th>
+						</thead>
+						<tbody>
+							<tr *cdkVirtualFor="let listItem of spotCheckDRSMComplianceDatas | filter:searchText; let i = index;"
+								[class.highlighted]="listItem.inspNo === currentInspNo" (click)="onSelectInspection(listItem)"
+								data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer;">
+								<td>{{i + 1}}</td>
+								<td title="Divisional Office Name">{{listItem.inspNo}}</td>
+								<td title="RO Code">{{listItem.roCode}}</td>
+								<td title="RO Name">{{listItem.roName}}</td>
+								<td title="Sales Area">{{listItem.location}}</td>
+								<td title="Sales Area">{{listItem.salesAreaName}}</td>
+							</tr>
+							<tr *ngIf="(spotCheckDRSMComplianceDatas | filter:searchText)?.length == 0 && searchText">
+								<td colspan="13" style="text-align: center">
+									<h5>Nothing found for: {{searchText}} </h5>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</cdk-virtual-scroll-viewport>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+	aria-hidden="true" *ngIf="spotCheckDRSMComplianceDatas.length > 0">
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Spot Check ATR Form for <u>{{currentRoName}}
+						({{currentRoCode}})</u>
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h3 style="text-align: center" *ngIf="spotCheckDRSMCompliancePoints.length == 0">No more point(s) to comply
+					:-)
+				</h3>
+				<table class="table table-striped" *ngIf="spotCheckDRSMCompliancePoints.length > 0">
+					<tr>
+						<th>Question</th>
+						<th>Observation</th>
+						<th>Whether Complied</th>
+						<th>Remarks</th>
+						<th>Action</th>
+					</tr>
+					<tr *ngFor="let point of spotCheckDRSMCompliancePoints; let i = index;">
+						<td>{{point.questionText}}</td>
+						<td>{{point.answer}}</td>
+						<td><input type="checkbox" class="form-control" [name]="'complyCheck' + i" [id]="'complyCheck' + i" />
+						</td>
+						<td><input type="text" class="form-control" [name]="'complyRemark' + i" [id]="'complyRemark' + i" />
+						</td>
+						<td><button class="btn btn-success" (click)="onSubmitCompliancePoint(i, point)">Submit</button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer justify-content-center">
+				<h4>Total point(s) to comply: {{spotCheckDRSMCompliancePoints.length}}</h4>
+			</div>
+		</div>
+	</div>
+	<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="spot-atr-entry" position="bottom-center">
+	</p-toast>
+</div>

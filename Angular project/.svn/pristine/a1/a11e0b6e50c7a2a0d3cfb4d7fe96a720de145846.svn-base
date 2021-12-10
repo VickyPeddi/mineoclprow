@@ -1,0 +1,133 @@
+<div class="page">
+	<!-- Main Navbar-->
+	<header class="header">
+		<nav class="navbar" style="padding: 0">
+			<div class="container-fluid">
+				<div class="navbar-holder d-flex align-items-center justify-content-between">
+					<!-- Navbar Header-->
+					<div class="navbar-header">
+						<!-- Navbar Brand -->
+						<img src="{{assetUrl}}\assets\img\ioc_png2.png" style="width: 18%">
+						<span></span>
+						<a routerLink="/home" class="navbar-brand d-none d-sm-inline-block">
+							<div class="brand-text d-none d-lg-inline-block"><span>Dhruva</span><strong>2.0</strong></div>
+							<div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>D2.0</strong></div>
+						</a>
+						<!-- Toggle Button-->
+						<a class="menu-btn" (click)="toggleCollapsed()" [class.active]="!isExpanded" style="cursor: pointer;">
+							<span></span><span></span><span></span>
+						</a>
+						<div class="navbar-header">
+						</div>
+					</div>
+					<!-- <div> <img src="/assets/icons/Dhruva Icon 72.png"></div> -->
+					<!-- Navbar Menu -->
+
+					<div class="navbar-header">
+						<!-- Logout    -->
+						<!-- <ol class="nav-item"><a (click)="onRefresh()" style="cursor: pointer;float: right;" class="nav-link logout">
+								<span class="d-none d-sm-inline">Refresh</span><i class="fa fa-sign-out"></i></a></ol> -->
+						<ol class="nav-item"><a (click)="onSignOut()" style="cursor: pointer;float: right;" class="nav-link logout">
+								<span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></ol>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="page-content d-flex align-items-stretch">
+		<!-- Side Navbar -->
+		<!-- <nav class="side-navbar" id="navbarSupportedContent" [class.shrinked]="isExpanded"> -->
+		<nav class="side-navbar" id="sidebar" [class.shrinked]="isExpanded">
+
+			<!-- Sidebar Header-->
+			<div class="sidebar-header d-flex align-items-center">
+				<img src="{{assetUrl}}\assets\img\dhruvalogo.jpeg" style="width: 70%;" [hidden]="isExpanded">
+			</div>
+			<div class="sidebar-header d-flex align-items-center" style="padding-bottom: 0;padding-top: 0">
+				<div class="avatar" [hidden]="!isExpanded">
+					<h2 class="name-initials" [title]="userName +' - ' + designation ">{{userName | nameInitials}}</h2>
+				</div>
+				<div class="title">
+					<h1 class="h4">{{userName}}</h1>
+					<p>{{designation}}</p>
+				</div>
+			</div>
+			<!-- Sidebar Navidation Menus-->
+			<span class="heading"></span>
+			<ul class="list-unstyled">
+				<li *ngFor="let sideBarMenu of sideBarMenus; let menuIndex = index;"
+					[class.list-unstyled]="sideBarMenu.routePath == undefined">
+					<a *ngIf="sideBarMenu.routePath != undefined" [routerLink]="sideBarMenu.routePath">{{sideBarMenu.menuName}}
+						<span *ngIf="sideBarMenu.newFlag" class="badge badge-success">New</span>
+					</a>
+					<a *ngIf="sideBarMenu.routePath == undefined" href [attr.data-target]="'#groupCollapse' + menuIndex"
+						aria-expanded="false" data-toggle="collapse">{{sideBarMenu.menuName}}</a>
+					<ul *ngIf="sideBarMenu.routePath == undefined" [id]="'groupCollapse' + menuIndex"
+						class="collapse list-unstyled">
+						<li class="list-unstyled" *ngFor="let sideBarSubMenu of sideBarMenu.subMenus; let subMenuIndex = index;">
+							<a *ngIf="sideBarSubMenu.menuItems.length == 0"
+								[routerLink]="sideBarSubMenu.routePath">{{sideBarSubMenu.subMenuName}}<span
+									*ngIf="sideBarSubMenu.newFlag" class="badge badge-success">New</span></a>
+							<a *ngIf="sideBarSubMenu.menuItems.length > 0" href
+								[attr.data-target]="'#groupCollapseInner' + subMenuIndex" aria-expanded="false"
+								data-toggle="collapse">{{sideBarSubMenu.subMenuName}}</a>
+							<ul *ngIf="sideBarSubMenu.menuItems.length > 0" [id]="'groupCollapseInner' + subMenuIndex"
+								class="collapse list-unstyled">
+								<li class="custom-li" *ngFor="let menuItem of sideBarSubMenu.menuItems" [id]="menuItem.repId"
+									routerLinkActive="active">
+									<a routerLink="mis/report/{{menuItem.repId}}">{{menuItem.repName}}
+										<span *ngIf="menuItem.newFlag" class="badge badge-success">New</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<div class="content-inner" style="width: 100%" [class.active]="isExpanded">
+			<router-outlet></router-outlet>
+			<!-- Page Footer-->
+			<div class="page">
+				<footer class="main-footer">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-sm-6">
+								<p>Developed by Marketing IS, Indian Oil Corporation Ltd. &copy; 2019</p>
+							</div>
+							<div class="col-sm-6 text-right">
+								<p>UI template from <a href="https://bootstrapious.com/admin-templates"
+										class="external">Bootstrapious</a></p>
+								<!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+							</div>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+		<button id="modal-button" data-toggle="modal" data-target="#exampleModal" style="display: none;"></button>
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			aria-hidden="true" (focusout)="onModalFocusOut()">
+			<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<u><b><h3 class="modal-title" id="exampleModalLabel" style="color: red">Introductory message</h3></b></u>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<ul style="list-style-type:square;color: green">
+							<li *ngFor="let message of welcomeMessage">
+								<h4>{{message}}</h4>
+							</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-ioc" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

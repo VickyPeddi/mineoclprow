@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-header d-flex align-items-center">
+    <h3 class="h4">Selection criteria not applicable for this report</h3>
+  </div>
+  <div class="card-body">
+    <div class="col-md-3 mb-3">
+      <div class="form-group">
+        <!-- <label for="submit" class="form-control-label">&nbsp;</label> -->
+        <button type="button" class="btn btn-primary" style="width: 100%" (click)="onRequestReport()"
+          [disabled]="buttonDisable">{{buttonDisable ? 'Processing...' : 'Show'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

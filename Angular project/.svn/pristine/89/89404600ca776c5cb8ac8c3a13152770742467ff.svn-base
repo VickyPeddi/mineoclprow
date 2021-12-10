@@ -1,0 +1,21 @@
+export class WeightageData {
+    constructor(public srNo: number,
+        public awesum: number,
+        public facility: number,
+        public spot: number,
+        public caEval: number,
+        public activity: number,
+        // public usp: number,
+        public mpower: number,
+        public quiz: number,
+        public rca: number,
+        public caTrain: number,
+        // public shortTerm: number,
+        public telecall: number,
+        public fit: number,
+        public seva: number,
+        public xperience: number,
+        public sks: number,
+        public attainer: number,
+        public dsa: number) { }
+}

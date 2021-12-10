@@ -1,0 +1,108 @@
+#menu {
+    height:41px;
+    margin:0;
+    border-radius : 5px;
+        -webkit-border-radius : 5px;
+        -moz-border-radius:5px;
+        -o-border-radius:5px;
+}
+
+#menu ul {
+    position:relative;
+    margin:0;
+    padding:0;
+    float:left;
+    list-style:none
+}
+
+#menu ul li {
+    float:left;
+    border-top-left-radius : 5px;
+    border-top-right-radius : 5px;
+    margin-left:2px;
+    height: 25px;
+   background: url(../img/header_bg.png) repeat-x #f5f5f5;
+    box-shadow:25px;
+    -ms-box-shadow:25px;
+    -webkit-box-shadow:25px;
+    -moz-box-shadow:25px;
+}
+
+#menu ul li a {
+    display:block;
+    height:25px;
+    padding:0 10px;
+    font-family:'Anaheim',sans-serif;
+    font-size:13px;
+    color:#fff;
+    text-decoration:none;
+    line-height:30px;
+    -webkit-transition:all .2s linear;
+    -moz-transition:all .2s linear;
+    -ms-transition:all .2s linear;
+    -o-transition:all .2s linear;
+    transition:all .2s linear;
+    border-top-left-radius : 4px;
+    border-top-right-radius : 4px;
+}
+	
+#menu ul li a:hover, #menu ul li a.selected {
+    background:#fff;
+    color:#000;
+}
+
+#menu ul ul {
+    display:none;
+    width:1300px;
+    height:25px;
+    position:absolute;
+    left:0;
+    -webkit-transition:all .4s ease-out .1s;
+    -moz-transition:all .4s ease-out .1s;
+    -ms-transition:all .4s ease-out .1s;
+    -o-transition:all .4s ease-out .1s;
+    transition:all .4s ease-out .1s
+}
+
+#menu ul ul li {
+    display: inline;
+    background-color: transparent;
+    float: left;
+    list-style: none;
+}
+
+#menu ul ul.visible {
+    z-index:1;
+    margin-left:0;
+    display:inline;
+}
+
+#menu ul li:hover ul {
+    z-index:2;
+    margin-left:0;
+    display:inline;
+}
+
+#menu ul ul li a {
+    background-color: transparent;
+    height:25px;
+    padding:0 10px;
+    font-size:13px;
+    color:#000;
+    text-transform:capitalize;
+    line-height:30px;
+    -webkit-transition:color .3s ease-in-out;
+    -moz-transition:color .3s ease-in-out;
+    -ms-transition:color .3s ease-in-out;
+    -o-transition:color .3s ease-in-out;
+    transition:color .3s ease-in-out
+}
+
+#menu ul ul li a:hover, #menu ul ul li a.selected {
+    color:#09F;
+}
+
+.step {
+    display:none;
+    margin-top : 20px;
+}

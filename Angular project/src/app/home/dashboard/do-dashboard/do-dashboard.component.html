@@ -1,0 +1,37 @@
+<div class="row">
+    <!-- <a class="btn" style="width: 100px;"><i>Metrics : </i></a> -->
+    <a class=" btn btn-outline-success " routerLink="master-dashboard" routerLinkActive="active"
+        style="width:75px;">Index</a>&nbsp;&nbsp;
+    <a class=" btn btn-outline-ioc" routerLink="fit-dashboard" routerLinkActive="active"
+        style="width:75px;">FIT</a>&nbsp;&nbsp;
+    <a class=" btn btn-outline-danger" routerLink="seva-dashboard" routerLinkActive="active"
+        style="width:75px;">SEVA</a>&nbsp;&nbsp;
+    <a class=" btn btn-outline-info" routerLink="awesum-dashboard" routerLinkActive="active">AWESUM</a>&nbsp;&nbsp;
+    <a class=" btn btn-outline-primary" routerLink="dhruva-compliant-dashboard" routerLinkActive="active">Compliance</a>
+</div>
+<div class=" alert alert-secondary" role="alert" style="padding: 0" *ngIf="compliancePoint.index != -1">
+    <div class="row" style=" padding-bottom: 0;">
+        <div class="col-md-2">
+            <b>{{this.authService.dashBoardDoName}} DO Scores :</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Dhruva index: <span class="badge badge-success">{{compliancePoint.index}}</span>
+        </div>
+        <div class="col-md-2">
+            FIT: <span class="badge badge-success">{{compliancePoint.fit}}</span>
+        </div>
+        <div class="col-md-2">
+            SEVA: <span class="badge badge-success">{{compliancePoint.seva}}</span>
+        </div>
+        <div class="col-md-2">
+            AWESUM: <span class="badge badge-success">{{compliancePoint.awesum}}</span>
+        </div>
+        <div class="col-md-2">
+            Compliance: <span class="badge badge-success">{{compliancePoint.compliance}}</span>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
+<br><br><br>

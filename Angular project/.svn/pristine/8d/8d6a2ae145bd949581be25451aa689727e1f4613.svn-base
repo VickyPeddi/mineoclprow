@@ -1,0 +1,158 @@
+<!-- Page Header-->
+<header class="page-header">
+	<div class="container-fluid">
+		<h2 class="no-margin-bottom">Dhruva DO Leaderboard</h2>
+	</div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header d-flex align-items-center">
+				<h3 class="h4">Leaderboard Scores as on {{updatedOn}}</h3>
+			</div>
+			<div class="card-body" style="margin-right: 19%">
+				<p-table #dt [columns]="cols" [value]="soManagerLeaderboardDatas" [paginator]="true" [rows]="6"
+					[scrollable]="true" [globalFilterFields]="['soManagerName','employeeLocation']">
+					<ng-template pTemplate="caption">
+						<button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Export" (click)="dt.exportCSV()"
+							style="float:left"></button>
+						<div style="text-align: right">
+							<i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+							<input type="text" pInputText size="25" placeholder="Search"
+								(input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+						</div>
+					</ng-template>
+					<!-- <ng-template pTemplate="header">
+              <tr>
+                <th>State Office</th>
+                <th>All India Rank</th>
+                <th>Dhruva ROs</th>
+                <th>Awesum (W:3)</th>
+                <th>Facility Completion (W:2)</th>
+                <th>Spot Check (W:2)</th>
+                <th>CA Evaluation (W:2)</th>
+                <th>Activity Completion (W:1)</th>
+                <th>mPower Plus (W:1)</th>
+                <th>FO Quiz (W:1)</th>
+                <th>RCA (W:1)</th>
+                <th>CA Training (W:1)</th>
+                <th>Telecall (W:1)</th>
+                <th>FIT (W:2)</th>
+                <th>SEVA (W:2)</th>
+                <th>Sau Ka Sankalp (W:1)</th>
+                <th>Attainer (W:1)</th>
+                <th>DSA (W:1)</th>
+                <th>Xperience (W:1)</th>
+                <th>Dhruva Index</th>
+              </tr>
+            </ng-template> -->
+					<ng-template pTemplate="header" let-columns>
+						<tr>
+							<th style="width:100px" *ngFor="let col of columns" [pSortableColumn]="col.field">
+								{{col.header}}
+								<p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+									ariaLabelDesc="Activate to sort in descending order"
+									ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+							</th>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="body" let-soManagerLeaderboardData>
+						<tr>
+							<!-- <td style="width:100px" title="Sr. No.">{{soManagerLeaderboardData.index}}</td> -->
+							<td style="width:100px" title="SO Manager Name">{{soManagerLeaderboardData.soManagerName}}</td>
+							<td style="width:100px" title="Employee Loaction">{{soManagerLeaderboardData.employeeLocation}}</td>
+							<td style="width:100px" title="All India Rank">{{soManagerLeaderboardData.rank}}</td>
+							<td style="width:100px" title="Dhruva ROs">{{soManagerLeaderboardData.totalDhruva}}</td>
+							<td style="width:100px" title="Dhruva Compliant"
+								[attr.class]="soManagerLeaderboardData.dhruvaCompliant | colorCode">
+								{{soManagerLeaderboardData.dhruvaCompliant}}</td>
+							<td style="width:100px" title="Awesum (W:3)" [attr.class]="soManagerLeaderboardData.awesum | colorCode">
+								{{soManagerLeaderboardData.awesum}}</td>
+							<td style="width:100px" title="Facility Completion (W:2)"
+								[attr.class]="soManagerLeaderboardData.facilityCompletion | colorCode">
+								{{soManagerLeaderboardData.facilityCompletion}}</td>
+							<td style="width:100px" title="Spot Check (W:2)"
+								[attr.class]="soManagerLeaderboardData.spotCheck | colorCode">
+								{{soManagerLeaderboardData.spotCheck}}</td>
+							<td style="width:100px" title="CA Evaluation (W:2)"
+								[attr.class]="soManagerLeaderboardData.caEvaluation | colorCode">
+								{{soManagerLeaderboardData.caEvaluation}}</td>
+							<td style="width:100px" title="Activity Completion (W:1)"
+								[attr.class]="soManagerLeaderboardData.activityCompletion | colorCode">
+								{{soManagerLeaderboardData.activityCompletion}}</td>
+							<td style="width:100px" title="mPower Plus (W:1)"
+								[attr.class]="soManagerLeaderboardData.mPower | colorCode">
+								{{soManagerLeaderboardData.mPower}}</td>
+							<td style="width:100px" title="FO Quiz (W:1)" [attr.class]="soManagerLeaderboardData.foQuiz | colorCode">
+								{{soManagerLeaderboardData.foQuiz}}</td>
+							<td style="width:100px" title="RCA (W:1)" [attr.class]="soManagerLeaderboardData.rca | colorCode">
+								{{soManagerLeaderboardData.rca}}</td>
+							<td style="width:100px" title="CA Training (W:1)"
+								[attr.class]="soManagerLeaderboardData.caTraining | colorCode">
+								{{soManagerLeaderboardData.caTraining}}</td>
+							<td style="width:100px" title="Telecall (W:1)"
+								[attr.class]="soManagerLeaderboardData.telecall | colorCode">
+								{{soManagerLeaderboardData.telecall}}</td>
+							<td style="width:100px" title="FIT (W:2)" [attr.class]="soManagerLeaderboardData.fit | colorCode">
+								{{soManagerLeaderboardData.fit}}</td>
+							<td style="width:100px" title="SEVA (W:2)" [attr.class]="soManagerLeaderboardData.seva | colorCode">
+								{{soManagerLeaderboardData.seva}}</td>
+							<!-- <td style="width:100px" title="Sau Ka Sankalp (W:1)"
+								[attr.class]="soManagerLeaderboardData.sauKaSankalp | colorCode">
+								{{soManagerLeaderboardData.sauKaSankalp}}</td> -->
+							<td style="width:100px" title="Attainer (W:1)"
+								[attr.class]="soManagerLeaderboardData.attainer | colorCode">
+								{{soManagerLeaderboardData.attainer}}</td>
+							<td style="width:100px" title="Xperience (W:1)"
+								[attr.class]="soManagerLeaderboardData.xperience | colorCode">
+								{{soManagerLeaderboardData.xperience}}</td>
+							<td style="width:100px" title="Dhruva Index"
+								[attr.class]="soManagerLeaderboardData.finalDhruvaIndex | colorCode">
+								{{soManagerLeaderboardData.finalDhruvaIndex}}</td>
+						</tr>
+					</ng-template>
+					<ng-template pTemplate="summary">
+						Total records: {{soManagerLeaderboardDatas?.length}}
+					</ng-template>
+				</p-table>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header d-flex align-items-center">
+				<h3 class="h4">Weightage information</h3>
+			</div>
+			<div class="card-body">
+				<table class="container-fluid table table-responsive">
+					<tr>
+						<th>Awesum: {{weightageData.awesum}}</th>
+						<th>Facility Completion: {{weightageData.facility}}</th>
+						<th>Spot Check: {{weightageData.spot}}</th>
+						<th>CA Evaluation: {{weightageData.caEval}}</th>
+						<th>Activity Completion: {{weightageData.activity}}</th>
+						<th>mPower Plus: {{weightageData.mpower}}</th>
+					</tr>
+					<tr>
+						<th>FO Quiz: {{weightageData.quiz}}</th>
+						<th>RCA: {{weightageData.rca}}</th>
+						<th>CA Training: {{weightageData.caTrain}}</th>
+						<th>Telecall: {{weightageData.telecall}}</th>
+						<th>FIT: {{weightageData.fit}}</th>
+						<th>SEVA: {{weightageData.seva}}</th>
+					</tr>
+					<tr>
+						<!-- <th>Sau Ka Sankalp: {{weightageData.sks}}</th> -->
+						<th>Attainer: {{weightageData.attainer}}</th>
+						<th>Xperience: {{weightageData.xperience}}</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>

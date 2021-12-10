@@ -1,0 +1,113 @@
+<div class="card-header" [id]="'heading' + index">
+	<h2 class="mb-0">
+		<button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + index"
+			aria-expanded="true" [attr.aria-controls]="'collapse' + index">
+			<h5 style="text-align: left">{{index + 1}}).
+				{{data.categoryText}}
+				<i [ngClass]="fitDetailForm.controls.status.value | fitTrackerStatus">
+					[{{(fitDetailForm.controls.status.value | fitTrackerStatus).replace('-',' ').replace('-',' ').replace('-',' ').replace('-',' ')}}]
+				</i>
+			</h5>
+		</button>
+	</h2>
+</div>
+<div [id]="'collapse' + index" class="collapse" [attr.aria-labelledby]="'heading' + index"
+	data-parent="#fitDataAccordion">
+	<div class="card-body">
+		<form [formGroup]="fitDetailForm">
+			<div class="form-group" *ngIf ="fitDetailForm.controls.status.value>100">
+				<button (click)="onEditValues()" class="btn btn-danger">Edit already submitted values</button>
+			</div>
+			<div class="form-group">
+				<label for="facility">Facility Name:</label>
+				<input class="form-control" formControlName="facility" />
+			</div>
+			<div class="form-group">
+				<label for="latestTPCScore">Latest TPC Score:</label>
+				<input class="form-control" formControlName="latestTPCScore" />
+			</div>
+			<!-- <div class="form-group">
+				<label for="previousTPCScore">Previous TPC Score:</label>
+				<input id="previousTPCScore" name="previousTPCScore" class="form-control"
+					formControlName="previousTPCScore" />
+			</div> -->
+			<div class="form-group">
+				<label for="stage">Stage:</label>
+				<input type="text" class="form-control" formControlName="stage" />
+			</div>
+			<div class="form-group">
+				<label for="plannedStartDate">Planned Start Date:</label>
+				<input type="date" class="form-control" formControlName="plannedStartDate" />
+			</div>
+			<div class="form-group">
+				<label for="actualStartDate">Actual Start Date:</label>
+				<input type="date" class="form-control" formControlName="actualStartDate"
+					[ngClass]="{ 'is-invalid': submitted && f.actualStartDate.errors }" />
+				<div *ngIf="submitted && f.actualStartDate.errors" class="invalid-feedback">
+					<div *ngIf="f.actualStartDate.errors.required">Actual Start Date is required</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="plannedCompletionDate">Planned Completion Date:</label>
+				<input type="date" class="form-control" formControlName="plannedCompletionDate" />
+			</div>
+			<div class="form-group">
+				<label for="actualCompletionDate">Actual Completion Date:</label>
+				<input type="date" class="form-control" formControlName="actualCompletionDate"
+					[ngClass]="{ 'is-invalid': submitted && f.actualCompletionDate.errors }" />
+				<div *ngIf="submitted && f.actualCompletionDate.errors" class="invalid-feedback">
+					<div *ngIf="f.actualCompletionDate.errors.required">Actual Completion Date is required</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="actionPlan">Plan of Action:</label>
+				<textarea class="form-control" formControlName="actionPlan"></textarea>
+			</div>
+			<div class="form-group" *ngIf="userLevel == 'FO' && fitDetailForm.controls.status.value == '100'">
+				<label for="photoUpload">Photo Upload:</label>
+				<input type="file" class="form-control-file btn btn-ioc" accept="image/*" (change)="onSelectFile($event)" />
+			</div>
+			<div class="form-group" *ngIf="isPhotoAvailable">
+				<a class="btn btn-default" target="_blank"
+					href="{{backEndUrl}}/fit-tracker/fit-tracker-photo/{{this.data.fitTrackerPK.auditId}}/{{this.data.fitTrackerPK.catId}}">
+					<i class="fa fa-cloud-download fa-x" aria-hidden="true"></i>Download uploaded photo</a>
+			</div>
+			<div class="form-group">
+				<label for="remarks">Remarks:</label>
+				<input type="text" class="form-control" formControlName="remarks"
+					[ngClass]="{ 'is-invalid': submitted && f.remarks.errors }" />
+				<div *ngIf="submitted && f.remarks.errors" class="invalid-feedback">
+					<div *ngIf="f.remarks.errors.required">Remarks is required</div>
+				</div>
+			</div>
+			<div class="form-group" *ngIf="data.fitRemarks.length>0">
+				<label for="remarks">Remarks History:</label>
+				<table class="table table-striped table-hover">
+					<tr>
+						<th>Remark</th>
+						<th>Remark level</th>
+						<th>Updated by</th>
+						<th>Updated on</th>
+					</tr>
+					<tr *ngFor="let remark of data.fitRemarks">
+						<td>{{remark.remarks}}</td>
+						<td>{{remark.remarksLevel}}</td>
+						<td>{{remark.updatedBy}}</td>
+						<td>{{remark.updatedOn}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="justify-content-center" style="text-align: center">
+				<button *ngIf="userLevel=='FO' && fitDetailForm.controls.status.value=='100'" type="button"
+					class="btn btn-success" (click)="onSubmitForm()" [disabled]="buttonDisable">
+					{{ buttonDisable ? 'Please Wait...' :'Update' }}</button>
+				<button *ngIf="userLevel=='DO' && fitDetailForm.controls.status.value=='200'" type="button"
+					class="btn btn-success" (click)="onSubmitForm()" [disabled]="buttonDisable">
+					{{ buttonDisable ? 'Please Wait...' :'Approve' }}</button>
+				<button *ngIf="userLevel=='DO' && fitDetailForm.controls.status.value=='200'" type="button"
+					class="btn btn-danger" (click)="onRevertToFO()" [disabled]="buttonDisable">
+					{{ buttonDisable ? 'Please Wait...' : 'Revert to FO'}}</button>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,134 @@
+.name-initials {
+	display: table-cell;
+	height: 55px;
+	width: 55px;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 50% !important;
+	color: white;
+	background-color: rgb(239, 126, 62);
+	border-color: rgb(239, 126, 62);
+	font-size: larger;
+}
+
+.name-initials:hover {
+	color: white;
+	background-color: rgb(0, 18, 89);
+	border-color: rgb(0, 18, 89);
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+#sidebar {
+	width: 250px;
+	/* position: fixed; */
+	top: 0;
+	left: -250px;
+	height: 100vh;
+	z-index: 999;
+	background: #fff;
+	color: #000;
+	transition: all 0.3s;
+	overflow-y: scroll;
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar.active {
+	left: 0;
+}
+
+#dismiss {
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	background: white;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.overlay {
+	display: none;
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 998;
+	opacity: 0;
+	transition: all 0.5s ease-in-out;
+}
+
+.overlay.active {
+	display: block;
+	opacity: 1;
+}
+
+/* #sidebar .sidebar-header {
+    padding: 20px;
+    background: white;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul a {
+    padding: 10px;
+    /* font-size: 1.1em; */
+
+/* display: block;
+} */
+
+#sidebar li.active>a {
+	font-style: italic;
+	font-size: 0.95em;
+}
+
+#navbarSupportedContent li.active>a {
+	font-style: italic;
+	font-size: 0.95em;
+}
+
+/* #sidebar ul li a:hover {
+   padding-left: 20px;
+  font-style: italic;
+} */
+
+/* #sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+} */
+
+a[data-toggle="collapse"] {
+	position: relative;
+}
+
+:host ::ng-deep button {
+	margin-right: .25em;
+}
+
+:host ::ng-deep .custom-toast .ui-toast-message {
+	color: #ffffff;
+	background: #FC466B;
+	background: -webkit-linear-gradient(to right, rgb(251, 138, 63), rgb(112, 252, 70));
+	background: rgb(255, 183, 197);
+	/*linear-gradient(to right, rgb(255, 145, 0), rgb(72, 255, 0)); */
+}
+
+:host ::ng-deep .custom-toast .ui-toast-close-icon {
+	color: #ffffff;
+}

@@ -1,0 +1,131 @@
+<header class="page-header">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-6">
+				<h2 class="no-margin-bottom">Spot Check</h2>
+			</div>
+			<div class="col-lg-6 col-md-6 col-6" style="text-align: right;">
+				<button (click)="onSpotCheckDataSync()" style="cursor: pointer;" [class]="'btn btn-sm btn-success'">
+					<h2 class="d-none d-sm-inline">Sync </h2><i class="fa fa-refresh"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</header>
+<section class="dashboard-counts no-padding-bottom">
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header d-flex align-items-center">
+				<h3 class="h4">List of Eligible Retail Outlets</h3>
+			</div>
+			<div class="card-body">
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" aria-hidden="true"><i class="fa fa-search"></i></span>
+							<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+								placeholder="Search">
+						</div>
+					</div>
+				</div>
+				<cdk-virtual-scroll-viewport style="height: 500px;width: 100%" itemSize="50">
+					<table class="table container-fluid table-hover" style="overflow-x: scroll">
+						<thead>
+							<th>Sr. No.</th>
+							<th>RO Code</th>
+							<th>RO Name</th>
+							<th>DO</th>
+							<th>Location</th>
+							<th>Archetype</th>
+							<th>Phase</th>
+							<th>Sales Area</th>
+							<th>Site</th>
+						</thead>
+						<tbody>
+							<tr *ngIf="!employeeDhruvaRODatas">
+								<td colspan="12">Please wait!!! Populating RO list</td>
+							</tr>
+							<tr *cdkVirtualFor="let listItem of employeeDhruvaRODatas | filter:searchText; let i = index;"
+								[class.highlighted]="listItem.roCode === currentRoCode" (click)="selectRoCode($event, listItem)"
+								data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer;">
+								<td>{{i + 1}}</td>
+								<td title="RO Code">{{listItem.roCode}}</td>
+								<td title="RO Name">{{listItem.roName}}</td>
+								<td title="Divisional Office Name">{{listItem.doName}}</td>
+								<td title="Location">{{listItem.location}}</td>
+								<td title="Archetype">{{listItem.archetypeName}}</td>
+								<td title="Phase">{{listItem.phase}}</td>
+								<td title="Sales Area">{{listItem.salesAreaName}}</td>
+								<td title="Site">{{listItem.site}}</td>
+							</tr>
+							<tr *ngIf="(employeeDhruvaRODatas | filter:searchText)?.length == 0">
+								<td colspan="13" style="text-align: center">
+									<h5>Nothing found for: {{searchText}} </h5>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</cdk-virtual-scroll-viewport>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg " role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Spot Check Form for <u>{{currentRoName}}
+						({{currentRoCode}})</u>
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="spotCheckForm">
+					<div formArrayName="spotCheckPoints">
+						<table class="table-responsive container table table-striped">
+							<thead>
+								<tr>
+									<th style="font-size: large">
+										Questions
+									</th>
+									<th style="font-size: large">
+										Observation
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let spotCheckPointCtrl of spotCheckFormData?.controls; let j = index;" [formGroupName]="j">
+									<td>
+										<p>{{j + 1}}). {{spotCheckPointCtrl.controls.spotCheckPoint.value}}</p>
+									</td>
+									<td *ngIf="spotCheckPointCtrl.controls.spotCheckPointInputType.value === 'DROP'">
+										<select class='form-control' formControlName="spotCheckPointValue">
+											<option value="" selected disabled>-- Select --</option>
+											<option *ngFor="let typeOption of spotCheckPointCtrl.controls.spotCheckPointOptions.value"
+												[value]="typeOption.value">{{typeOption.value}}
+											</option>
+										</select>
+									</td>
+									<td *ngIf="spotCheckPointCtrl.controls.spotCheckPointInputType.value === 'TEXT'">
+										<input type="text" class='form-control' formControlName="spotCheckPointValue">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="justify-content-center" style="text-align: center">
+							<h6 *ngIf="submitButtonEnableInstruction != 'OK'">{{submitButtonEnableInstruction}}</h6>
+							<button *ngIf="submitButtonEnableInstruction == 'OK'" type="button" class="btn btn-ioc"
+								(click)="onSubmitForm()" [disabled]="buttonDisable">
+								{{ buttonDisable ? 'Please Wait...' : 'Submit' }}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="spot-entry" position="bottom-center"></p-toast>
+</div>
+<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="spot" position="bottom-center"></p-toast>

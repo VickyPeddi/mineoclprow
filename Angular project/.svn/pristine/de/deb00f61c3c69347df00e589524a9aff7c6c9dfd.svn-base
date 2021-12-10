@@ -1,0 +1,84 @@
+<!-- Page Header-->
+<header class="page-header">
+	<div class="container-fluid">
+		<h2 class="no-margin-bottom">Sales Area Mapping</h2>
+	</div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="h4">Map Sales Area to DO Manager</h3>
+			</div>
+			<div class="card-body">
+				<form class="form-inline" (ngSubmit)="onSubmitSAMappingDetails()" [formGroup]="saMappingDetailsForm">
+					<div class="col-md-4 mb-3">
+						<div class="form-group">
+							<label for="salesArea" class="form-control-label">Sales Area</label>
+							<select name="salesArea" formControlName="salesArea" class="form-control" style="width: 100%">
+								<option value="" selected disabled>--Select--</option>
+								<option *ngFor="let sa of saList" [value]="sa.salesArea">{{sa.salesAreaName}}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4 mb-3">
+						<div class="form-group">
+							<label for="divisionManager" class="form-control-label">Division Office Manager</label>
+							<select name="divisionManager" formControlName="divisionManager" class="form-control" style="width: 100%">
+								<option value="" selected disabled>--Select--</option>
+								<option *ngFor="let divisionManager of divisionManagers" [value]="divisionManager[1]">
+									{{divisionManager[0]}} ({{divisionManager[1]}})
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4 mb-3">
+						<div class="form-group">
+							<label for="submit" class="form-control-label">&nbsp;</label>
+							<button type="submit" class="btn btn-primary" style="width: 100%"
+								[disabled]="buttonDisable">{{buttonDisable ? 'Processing...' : 'Save'}}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Dashboard Header Section    -->
+<section class="dashboard-header">
+	<div class="container-fluid">
+	</div>
+</section>
+<!-- Projects Section-->
+<section class="projects no-padding-top">
+
+
+</section>
+<!-- Client Section-->
+<section class="client no-padding-top">
+	<div class="container-fluid">
+		<div class="row">
+
+		</div>
+	</div>
+</section>
+<!-- Feeds Section-->
+<section class="feeds no-padding-top">
+	<div class="container-fluid">
+		<div class="row">
+
+		</div>
+	</div>
+</section>
+<!-- Updates Section                                                -->
+<section class="updates no-padding-top">
+	<div class="container-fluid">
+		<div class="row">
+
+		</div>
+	</div>
+</section>
+<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="sa-mapping-status" position="bottom-center">
+</p-toast>

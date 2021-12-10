@@ -1,0 +1,59 @@
+@CHARSET "ISO-8859-1";
+#rodata
+{
+    font-family: verdana;
+    font-size:11px;
+    color:#333333;
+}
+#rodata th
+{
+    font-size:15px;
+    padding: 8px;
+    background-color: #006699;
+}
+
+
+#rodata td:nth-child(1)
+{
+    padding-right: 10px;
+    width: 450px;
+}
+
+#rodata td:nth-child(2)
+{
+    padding-left: 10px;
+    width: 450px;
+}
+
+#rodata td 
+{
+
+    padding: 8px;
+
+
+}
+#rodata td:hover
+{
+    font-size: 11px;
+}
+
+
+#rodata tr:nth-child(even)
+{
+    background-color: #CCE0EB;
+}
+.tablecss th{
+    background-color: #00CED1;
+    font-size: 12px;
+    font:bold;
+}
+.tablecss td{
+    background-color: powderblue;
+    text-align: center;
+    font-size: 14px;
+    font:bold;
+}
+.tablecss{
+    width: 100%;
+}
+

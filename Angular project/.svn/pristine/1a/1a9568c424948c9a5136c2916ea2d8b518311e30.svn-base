@@ -1,0 +1,122 @@
+<!-- Page Header-->
+<header class="page-header">
+    <div class="container-fluid">
+      <h2 class="no-margin-bottom">Dhruva DO Manager Leaderboard</h2>
+    </div>
+  </header>
+  <!-- Dashboard Counts Section-->
+  <section class="dashboard-counts no-padding-bottom">
+    
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header d-flex align-items-center">
+          <h3 class="h4">Leaderboard Scores as on {{updatedOn}}</h3>
+        </div>
+        <div class="card-body" style="margin-right: 19%">
+          <p-table #dt [columns]="cols" [value]="doManagerLeaderboardDatas" [paginator]="true" [rows]="6" [scrollable]="true"
+            [globalFilterFields]="['doManagerName','employeeLocation']">
+            <ng-template pTemplate="caption">
+              <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Export" (click)="dt.exportCSV()"
+                style="float:left"></button>
+              <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="25" placeholder="Search"
+                  (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>
+            </ng-template>
+            
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns" [class.morewidth]="col.header=='DO Manager Name'" [pSortableColumn]="col.field" [class.lesswidth]="col.header!='DO Manager Name'">
+                  {{col.header}}
+                   <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                    ariaLabelDesc="Activate to sort in descending order"
+                    ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon> 
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-doManagerLeaderboardData>
+              <tr>
+                <!-- <td style="width:100px" title="Sr. No.">{{doManagerLeaderboardData.index}}</td> -->
+                <td style="width:150px" title="DO Manager Name">{{doManagerLeaderboardData.doManagerName}}</td>
+                <!-- <td style="width:100px" title="DO Manager Emp Code">{{doManagerLeaderboardData.doManagerEmpCode}}</td> -->
+                <td style="width:100px" title="DO Manager Emp Code">{{doManagerLeaderboardData.employeeLocation}}</td>
+                <td style="width:100px" title="All India Rank">{{doManagerLeaderboardData.rank}}</td>
+                <td style="width:100px" title="Dhruva ROs">{{doManagerLeaderboardData.totalDhruva}}</td>
+                <td style="width:100px" title="Dhruva Compliant" [attr.class]="doManagerLeaderboardData.dhruvaCompliant | colorCode">
+                  {{doManagerLeaderboardData.dhruvaCompliant}}</td>
+                <td style="width:100px" title="Awesum (W:3)" [attr.class]="doManagerLeaderboardData.awesum | colorCode">
+                  {{doManagerLeaderboardData.awesum}}</td>
+                <td style="width:100px" title="Facility Completion (W:2)" [attr.class]="doManagerLeaderboardData.facilityCompletion | colorCode">
+                  {{doManagerLeaderboardData.facilityCompletion}}</td>
+                <td style="width:100px" title="Spot Check (W:2)" [attr.class]="doManagerLeaderboardData.spotCheck | colorCode">
+                  {{doManagerLeaderboardData.spotCheck}}</td>
+                <td style="width:100px" title="CA Evaluation (W:2)" [attr.class]="doManagerLeaderboardData.caEvaluation | colorCode">
+                  {{doManagerLeaderboardData.caEvaluation}}</td>
+                <td style="width:100px" title="Activity Completion (W:1)" [attr.class]="doManagerLeaderboardData.activityCompletion | colorCode">
+                  {{doManagerLeaderboardData.activityCompletion}}</td>
+                <td style="width:100px" title="mPower Plus (W:1)" [attr.class]="doManagerLeaderboardData.mPower | colorCode">
+                  {{doManagerLeaderboardData.mPower}}</td>
+                <td style="width:100px" title="FO Quiz (W:1)" [attr.class]="doManagerLeaderboardData.foQuiz | colorCode">
+                  {{doManagerLeaderboardData.foQuiz}}</td>
+                <td style="width:100px" title="RCA (W:1)" [attr.class]="doManagerLeaderboardData.rca | colorCode">{{doManagerLeaderboardData.rca}}</td>
+                <td style="width:100px" title="CA Training (W:1)" [attr.class]="doManagerLeaderboardData.caTraining | colorCode">
+                  {{doManagerLeaderboardData.caTraining}}</td>
+                <!-- <td style="width:100px" title="Telecall (W:1)" [attr.class]="doManagerLeaderboardData.telecall | colorCode">
+                  {{doManagerLeaderboardData.telecall}}</td> -->
+                <td style="width:100px" title="FIT (W:2)" [attr.class]="doManagerLeaderboardData.fit | colorCode">{{doManagerLeaderboardData.fit}}</td>
+                <td style="width:100px" title="SEVA (W:2)" [attr.class]="doManagerLeaderboardData.seva | colorCode">{{doManagerLeaderboardData.seva}}</td>
+                <!-- <td style="width:100px" title="Sau Ka Sankalp (W:1)" [attr.class]="doManagerLeaderboardData.sauKaSankalp | colorCode">
+                  {{doManagerLeaderboardData.sauKaSankalp}}</td> -->
+                <td style="width:100px" title="Attainer (W:1)" [attr.class]="doManagerLeaderboardData.attainer | colorCode">
+                  {{doManagerLeaderboardData.attainer}}</td>
+                <td style="width:100px" title="Xperience (W:1)" [attr.class]="doManagerLeaderboardData.xperience | colorCode">
+                  {{doManagerLeaderboardData.xperience}}</td>
+                <td style="width:100px" title="Dhruva Index" [attr.class]="doManagerLeaderboardData.finalDhruvaIndex | colorCode">
+                  {{doManagerLeaderboardData.finalDhruvaIndex}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              Total records: {{doManagerLeaderboardDatas?.length}}
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+          <div class="card-header d-flex align-items-center">
+            <h3 class="h4">Weightage information</h3>
+          </div>
+          <div class="card-body">
+            <table class="container-fluid table table-responsive">
+              <tr>
+                <th>Awesum: {{weightageData.awesum}}</th>
+                <th>Facility Completion: {{weightageData.facility}}</th>
+                <th>Spot Check: {{weightageData.spot}}</th>
+                <th>CA Evaluation: {{weightageData.caEval}}</th>
+                <th>Activity Completion: {{weightageData.activity}}</th>
+                <th>mPower Plus: {{weightageData.mpower}}</th>
+              </tr>
+              <tr>
+                <th>FO Quiz: {{weightageData.quiz}}</th>
+                <th>RCA: {{weightageData.rca}}</th>
+                <th>CA Training: {{weightageData.caTrain}}</th>
+                <!-- <th>Telecall: {{weightageData.telecall}}</th> -->
+                <th>FIT: {{weightageData.fit}}</th>
+                <th>SEVA: {{weightageData.seva}}</th>
+                <!-- <th>Sau Ka Sankalp: {{weightageData.sks}}</th> -->
+              </tr>
+              <tr>
+                <th>Attainer: {{weightageData.attainer}}</th>
+                <th>Xperience: {{weightageData.xperience}}</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+  </section>

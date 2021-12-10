@@ -1,0 +1,64 @@
+<div >
+    <div style="text-align: center">
+      <h3>Divisional Office SEVA Scores</h3>
+    </div>
+    <div *ngIf="isMobile">
+        <div class="card-body">
+            <select style="width: auto" class='form-control' (change)="changeSo($event.target.value)">
+              <!-- Hard Coding SO Names as they are unlikey to change, so no point of hitting DB-->
+                <option value=" " selected="true" >--Select State Office--</option>
+                <option value="BSO">BSO</option>
+                <option value="DSO">DSO</option>
+                <option value="GSO">GSO</option>
+                <option value="IOAOD">IOAOD</option>
+                <option value="KASO">KASO</option>
+                <option value="KESO">KESO</option>
+                <option value="MPSO">MPSO</option>
+                <option value="MSO">MSO</option>
+                <option value="OSO">OSO</option>
+                <option value="PSO">PSO</option>
+                <option value="RSO">RSO</option>
+                <option value="TAPSO">TAPSO</option>
+                <option value="TNSO">TNSO</option>
+                <option value="UPSO-I">UPSO-I</option>
+                <option value="UPSO-II">UPSO-II</option>
+                <option value="WBSO">WBSO</option>
+              </select>&nbsp;&nbsp;
+        
+        <canvas *ngIf="currentSoData" baseChart [datasets]="barChartStateData" [labels]="barChartStateLabels"
+            [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartStateType"
+            [colors]="barChartStateColors" (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+      </div>
+      
+      <div *ngIf="!isMobile">
+          <div class="card-body">
+              <select style="width: auto" class='form-control' (change)="changeSo($event.target.value)">
+                <!-- Hard Coding SO Names as they are unlikey to change, so no point of hitting DB-->
+                  <option value=" " selected="true" >--Select State Office--</option>
+                  <option value="BSO">BSO</option>
+                  <option value="DSO">DSO</option>
+                  <option value="GSO">GSO</option>
+                  <option value="IOAOD">IOAOD</option>
+                  <option value="KASO">KASO</option>
+                  <option value="KESO">KESO</option>
+                  <option value="MPSO">MPSO</option>
+                  <option value="MSO">MSO</option>
+                  <option value="OSO">OSO</option>
+                  <option value="PSO">PSO</option>
+                  <option value="RSO">RSO</option>
+                  <option value="TAPSO">TAPSO</option>
+                  <option value="TNSO">TNSO</option>
+                  <option value="UPSO-I">UPSO-I</option>
+                  <option value="UPSO-II">UPSO-II</option>
+                  <option value="WBSO">WBSO</option>
+                </select>&nbsp;&nbsp;
+          
+          <canvas height="70%" *ngIf="currentSoData" baseChart [datasets]="barChartStateData" [labels]="barChartStateLabels"
+              [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartStateType"
+              [colors]="barChartStateColors" (chartClick)="chartClicked($event)">
+            </canvas>
+          </div>
+        </div>
+    </div>

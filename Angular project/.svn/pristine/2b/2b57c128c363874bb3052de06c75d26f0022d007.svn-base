@@ -1,0 +1,87 @@
+<!-- Page Header-->
+<header class="page-header">
+  <div class="container-fluid">
+    <h2 class="no-margin-bottom">CA Training</h2>
+  </div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5 col-12">
+        <div class="card">
+          <div class="card-header">
+            Upload CSV File
+          </div>
+           <div class="card-body ">
+           <!-- <div class="form-group">
+              <input type="file" name="file1" accept=".csv" (change)="onFileSelect($event.target)" />
+            </div> -->
+            <div class="btn btn-rounded btn-ioc btn-sm float-left">
+              <span></span>
+              <input type="file" class="form-control-file btn btn-ioc" accept=".csv" (change)="onFileSelect($event.target)">
+            </div>
+          </div> 
+         
+        </div>
+      </div>
+      <div class="col-md-7 col-12">
+        <div class="card">
+          <div class="card-header">
+            Sample CSV
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <ol>
+                <li>Sample file reference for upload of CA Training data</li>
+                <li>Date format should be dd-mm-yyyy. for eg. 31-03-2019</li>
+                <li>File should be of format "CSV" (Comma Separated Values) only</li>
+              </ol>
+              <a class="btn btn-ioc" href="{{assetUrl}}/assets/sample/ca-training-data.csv"
+                target="_blank">Download</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Dashboard Header Section    -->
+<section class="dashboard-header">
+  <div class="container-fluid">
+  </div>
+</section>
+<!-- Projects Section-->
+<section class="projects no-padding-top">
+
+
+</section>
+<!-- Client Section-->
+<section class="client no-padding-top">
+  <div class="container-fluid">
+    <div class="row">
+
+    </div>
+  </div>
+</section>
+<!-- Feeds Section-->
+<section class="feeds no-padding-top">
+  <div class="container-fluid">
+    <div class="row">
+
+    </div>
+  </div>
+</section>
+<!-- Updates Section                                                -->
+<section class="updates no-padding-top">
+  <div class="container-fluid">
+    <div class="row">
+
+    </div>
+  </div>
+</section>
+<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="ca-upload-progress" position="bottom-center"
+  modal="true">
+</p-toast>
+<p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="ca-upload-status" position="bottom-center">
+</p-toast>

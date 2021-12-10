@@ -1,0 +1,192 @@
+<!-- Page Header-->
+<header class="page-header">
+	<div class="container-fluid">
+		<h2 class="no-margin-bottom">Activities Completion</h2>
+	</div>
+</header>
+<!-- Dashboard Counts Section-->
+<section class="dashboard-counts no-padding-bottom">
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header d-flex align-items-center">
+				<h3 class="h4">List of Eligible Retail Outlets</h3>
+			</div>
+			<div class="card-body">
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" aria-hidden="true"><i class="fa fa-search"></i></span>
+							<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+								placeholder="Search">
+						</div>
+					</div>
+				</div>
+				<cdk-virtual-scroll-viewport style="height: 500px;width: 100%" itemSize="100">
+					<table class="table container-fluid table-responsive table-hover">
+						<thead>
+							<th>Sr. No.</th>
+							<th>RO code</th>
+							<th>RO Name</th>
+							<th>Divisional Office</th>
+							<th>Location</th>
+							<th>Archetype</th>
+							<th>Phase</th>
+							<th>Sales Area</th>
+							<th>Sau ka Sankalp</th>
+							<th>Attainer</th>
+							<th>Branded Fuel</th>
+							<th>Completed?</th>
+						</thead>
+						<tbody>
+							<tr *ngIf="!employeeDhruvaRODatas">
+								<td colspan="12">Please wait!!! Populating RO list</td>
+							</tr>
+							<tr *cdkVirtualFor="let listItem of employeeDhruvaRODatas | filter:searchText; let i = index"
+								[class.highlighted]="listItem.roCode === currentRoCode" (click)="selectRoCode(listItem)"
+								data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer;">
+								<td>{{i + 1}}</td>
+								<td title="RO Code">{{listItem.roCode}}</td>
+								<td title="RO Name" style="width: 50px">{{listItem.roName}}</td>
+								<td title="Divisional Office">{{listItem.doName}}</td>
+								<td title="Location">{{listItem.location}}</td>
+								<td title="Archetype">{{listItem.archetypeName}}</td>
+								<td title="Phase">{{listItem.phase}}</td>
+								<td title="Sales Area">{{listItem.salesAreaName}}</td>
+								<td title="Sau ka Sankalp">{{listItem.sauKaSankalp==='Y'?'Yes':'No'}}</td>
+								<td title="Attainer">{{listItem.attainer==='Y'?'Yes':'No'}}</td>
+								<td title="Branded Fuel">{{listItem.brandedFuel==='Y'?'Yes':'No'}}</td>
+								<td title="Completed?">
+									<i [style.color]="alreadyFilledROsMap.get(listItem.roCode)?'green':'red'"
+										[style.font-size]="'xx-large'"
+										[className]="alreadyFilledROsMap.get(listItem.roCode)?'fa fa-check' : 'fa fa-times'"
+										aria-hidden="true"></i>
+								</td>
+							</tr>
+							<tr *ngIf="(employeeDhruvaRODatas | filter:searchText)?.length == 0">
+								<td colspan="11" style="text-align: center">
+									<h5>Nothing found for: {{searchText}} </h5>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</cdk-virtual-scroll-viewport>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Activity Form</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div>
+					<div *ngIf="currentRoCode!=undefined">
+						<form (ngSubmit)="onSaveActData()" [formGroup]="dhruvaActivitiesForm">
+							<div class="form-group">
+								<label for="roName">Customer Name:</label>
+								<input id="roName" name="roName" class="form-control" formControlName="roName" readonly />
+							</div>
+							<div class="form-group">
+								<label for="archetypeName">Archetype Name:</label>
+								<input id="archetypeName" class="form-control" name="archetypeName" formControlName="archetypeName"
+									readonly />
+							</div>
+							<br>
+							<div formArrayName="dhruvaActivities">
+								<table class="container table-responsive ">
+									<thead>
+										<tr>
+											<th style="font-size: large;">Activity Name</th>
+											<th style="font-size: large;">Observation</th>
+										</tr>
+									</thead>
+									<tr>
+										<td colspan="2"><br>
+									</tr>
+									<tbody>
+										<tr *ngFor="let dhruvaActivityCtrl of dhruvaActivitiesFormData.controls; let i = index;"
+											[formGroupName]="i">
+											<td>
+												<p>{{dhruvaActivityCtrl.controls.activityName.value}}</p>
+											</td>
+											<td>
+												<select name="selectedValue" id="selectedValue" class='form-control'
+													formControlName="selectedValue">
+													<option value="" selected disabled>-- Select --</option>
+													<option value="Y">Yes</option>
+													<option value="N">No</option>
+												</select>
+											</td>
+										</tr>
+									</tbody>
+									<tr>
+										<td colspan="2" style="text-align: center">
+											<button *ngIf="!isSubmitted" type="submit" class="btn btn-ioc"
+												[disabled]="!dhruvaActivitiesForm.valid" data-target="#exampleModal">Submit</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</form>
+						<br />
+						<div style="text-align: center">
+							<button type="button" *ngIf="isSubmitted" class="btn btn-primary" data-toggle="modal"
+								data-target="#pictureModal">
+								Upload relevant Photos
+							</button>
+						</div>
+						<div class="modal fade" id="pictureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+								<div class="modal-content ">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Upload Pictures</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<div class="container-fluid">
+											<div class="row" *ngIf="dhruvaActivityListFileUpload">
+												<table class="container table-responsive">
+													<tr *ngFor="let listFileUpload of dhruvaActivityListFileUpload; let i = index;">
+														<td>{{listFileUpload.activityName}}</td>
+														<td><input type="file" name="activityFile" id="activityFile" accept="image/*"
+																(change)="onSelectFile($event)"></td>
+														<td><button class="btn btn-info"
+																(click)="onUploadActivityFile(listFileUpload)">Upload</button></td>
+													</tr>
+												</table>
+
+												<table class="table container table-responsive">
+													<tr *ngIf="fileUploadList">
+														<th colspan="2">Already Uploaded Pictures: </th>
+													</tr>
+													<tr *ngFor="let fileData of fileUploadList | async">
+														<td><label for="filename">{{fileData}}</label></td>
+														<td><a class="btn btn-default" target="_blank"
+																href="{{backEndUrl}}/activity/activity-file/{{fileData}}">Download</a>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p-toast styleClass="custom-toast" key="act" position="top-right"></p-toast>
+	</div>
+</div>
